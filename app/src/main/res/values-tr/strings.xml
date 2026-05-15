@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BoostDroid</string>
+    <string name="app_subtitle">Performans Optimizatörü</string>
+    <string name="nav_dashboard">PANEL</string>
+    <string name="nav_revive">HIZLI BAŞLAT</string>
+    <string name="nav_storage">DEPOLAMA</string>
+    <string name="nav_features">ÖZELLİKLER</string>
+    <string name="nav_dns">DNS SEÇİCİ</string>
+    <string name="nav_settings">AYARLAR</string>
+    <string name="nav_device">CİHAZ BİLGİSİ</string>
+
+    <string name="ram_usage">RAM KULLANIMI</string>
+    <string name="storage_usage">DEPOLAMA</string>
+    <string name="cpu_usage">İŞLEMCİ</string>
+    <string name="battery">PİL</string>
+    <string name="network_speed">AĞ HIZI</string>
+    <string name="io_label">DEPOLAMA I/O</string>
+    <string name="top_ram_apps">EN ÇOK RAM TÜKETENLER</string>
+    <string name="live">CANLI</string>
+
+    <string name="calculating">Hesaplanıyor...</string>
+    <string name="boost">BOOST</string>
+    <string name="boosting">OPTİMİZE EDİLİYOR...</string>
+    <string name="optimized">OPTİMİZE EDİLDİ</string>
+    <string name="ram_usage_pct">%%%1$d</string>
+    <string name="app_mem_text">%1$d MB</string>
+    <string name="boost_result_msg">%1$d MB boşaltıldı | %2$d MB önbellek temizlendi | %3$d uygulama kapatıldı</string>
+    <string name="system_clean">Sistem zaten temiz</string>
+
+    <string name="brand">MARKA</string>
+    <string name="model">MODEL</string>
+    <string name="soc">SOC (İŞLEMCİ)</string>
+    <string name="cores">ÇEKİRDEK</string>
+    <string name="ram">RAM</string>
+    <string name="storage">DEPOLAMA</string>
+    <string name="android_ver">ANDROID SÜRÜMÜ</string>
+    <string name="security_patch">GÜVENLİK YAMASI</string>
+    <string name="resolution">ÇÖZÜNÜRLÜK</string>
+    <string name="dpi">DPI</string>
+
+    <string name="device_title">CİHAZ</string>
+    <string name="processor_title">İŞLEMCİ</string>
+    <string name="memory_title">BELLEK</string>
+    <string name="software_title">YAZILIM</string>
+    <string name="display_title">EKRAN</string>
+
+    <string name="features_title">GENEL AYARLAR</string>
+    <string name="auto_boost_title">OTOMATİK BOOST</string>
+    <string name="scheduled_boost_title">ZAMANLANMIŞ BOOST</string>
+
+    <string name="kill_bg_apps">Arka Plan Uygulamalarını Kapat</string>
+    <string name="kill_bg_apps_desc">Hafif / Normal mod</string>
+    <string name="kill_all_apps">Tüm Uygulamaları Kapat</string>
+    <string name="kill_all_apps_desc">Agresif mod — sistem dışı tüm uygulamalar</string>
+    <string name="clear_cache">Önbelleği Temizle</string>
+    <string name="clear_clipboard">Panoyu Temizle</string>
+    <string name="optimize_before_launch">Başlatmadan Önce Optimize Et</string>
+    <string name="boost_on_startup">Başlangıçta Boost Et</string>
+    <string name="boost_on_screen_off">Ekran Kapandığında Boost Et</string>
+    <string name="smart_boost_enable">Akıllı Otomatik Boost</string>
+    <string name="smart_boost_desc">RAM kritik seviyeye ulaştığında otomatik temizler</string>
+    <string name="smart_boost_notif">Akıllı Boost aktifleşti: %1$d MB temizlendi.</string>
+
+    <string name="add_time">+ Zaman Ekle</string>
+    <string name="clear_times">Temizle</string>
+    <string name="no_scheduled">Zamanlanmış boost yok</string>
+    <string name="scheduled_at">Boost zamanları: %s</string>
+
+    <string name="settings_title">GÖRÜNÜM</string>
+    <string name="dark_theme">Koyu Tema</string>
+    <string name="language">DİL</string>
+    <string name="lang_turkish">Türkçe</string>
+    <string name="lang_english">English</string>
+    <string name="boost_intensity_title">BOOST YOĞUNLUĞU</string>
+    <string name="intensity_gentle">Hafif</string>
+    <string name="intensity_normal">Normal</string>
+    <string name="intensity_aggressive">Agresif</string>
+    <string name="notify_boost">Boost sonrası bildirim gönder</string>
+    <string name="boost_animation">Boost animasyonu</string>
+    <string name="permissions_title">İZİN DURUMU</string>
+    <string name="perm_usage">Kullanım Verileri</string>
+    <string name="perm_notif">Bildirimler</string>
+    <string name="perm_alarm">Tam Alarm</string>
+    <string name="perm_granted">VERİLDİ</string>
+    <string name="perm_denied">REDDEDİLDİ</string>
+    <string name="perm_grant">İzin Ver</string>
+    <string name="perm_skip">Atla</string>
+    <string name="fix">DÜZELT</string>
+
+    <string name="dns_title">DNS SAĞLAYICILARI</string>
+    <string name="dns_apply">UYGULA</string>
+    <string name="dns_validating">DNS Doğrulanıyor...</string>
+    <string name="dns_success">DNS aktif ve çalışıyor</string>
+    <string name="dns_fail">DNS uygulandı ancak internet erişimi yok</string>
+    <string name="dns_setup_title">Tek Seferlik Kurulum</string>
+    <string name="dns_setup_info">DNS değiştirmek için bir kez ADB komutu çalıştırın.</string>
+    <string name="dns_copy_adb">ADB KOMUTUNU KOPYALA</string>
+    <string name="dns_adb_copied">Komut kopyalandı</string>
+    <string name="dns_applied">DNS başarıyla uygulandı</string>
+    <string name="dns_current">Mevcut DNS: %s</string>
+    <string name="dns_default">Varsayılan (Sistem)</string>
+    <string name="dns_permission_error">DNS değiştirmek için gerekli izin bulunamadı</string>
+
+    <string name="perm_help_usage_title">Kullanım Erişimi</string>
+    <string name="perm_help_usage_desc">Uygulamaları kapatabilmek ve RAM kullanımını takip edebilmek için \'Kullanım Erişimi\' izni gereklidir.</string>
+    <string name="perm_help_alarm_title">Tam Alarmlar</string>
+    <string name="perm_help_alarm_desc">Zamanlanmış boost işlemlerinin tam vaktinde çalışabilmesi için \'Tam Alarmlar\' izni gereklidir.</string>
+
+    <string name="perm_rationale_title">İzinler Gerekli</string>
+    <string name="perm_rationale_desc">BoostDroid işlevlerini yerine getirmek için bazı sistem izinlerine ihtiyaç duyar.</string>
+
+    <string name="about_title">Hakkında</string>
+    <string name="accessibility_desc">BoostDroid uygulamaları kapatmak için erişilebilirlik servislerini kullanır.</string>
+    <string name="battery_charging">Şarj oluyor</string>
+    <string name="battery_hours">~%s saat kaldı</string>
+    <string name="battery_mah">%d mAh</string>
+    <string name="battery_saver_mode">Güç Tasarrufu</string>
+    <string name="battery_unknown_mah">Bilinmiyor</string>
+    <string name="compressed_mem">Sıkıştırılmış</string>
+    <string name="cpu_temp">%s°C</string>
+    <string name="cpu_throttle_warning">İşlemci ısındı, performans düşebilir.</string>
+    <string name="disable_bt_boost">Bluetooth\'u Kapat</string>
+    <string name="disable_wifi_boost">Wi-Fi\'yi Kapat</string>
+    <string name="io_read">Okuma: %s</string>
+    <string name="io_status_busy">Meşgul</string>
+    <string name="io_status_normal">Normal</string>
+    <string name="io_warning">Yüksek Disk Kullanımı</string>
+    <string name="io_write">Yazma: %s</string>
+    <string name="perm_required_alarm">Tam alarm izni gereklidir.</string>
+    <string name="perm_required_usage">Kullanım verileri erişimi gereklidir.</string>
+    <string name="ram_critical_warning">RAM kritik seviyede!</string>
+    <string name="restricted_android_10">Android 10+ kısıtlamaları etkin.</string>
+    <string name="revive_btn">YENİLE</string>
+    <string name="revive_fail">Yenileme başarısız.</string>
+    <string name="revive_search_hint">Uygulama ara...</string>
+    <string name="revive_success">Uygulama yenilendi. %1$d MB boşaltıldı</string>
+    <string name="revive_title">HIZLI BAŞLAT</string>
+    <string name="smart_boost_title">AKILLI BOOST</string>
+    <string name="storage_clean_result">%1$d MB alan temizlendi (%2$d uygulama).</string>
+    <string name="storage_cleaning">Temizleniyor...</string>
+    <string name="storage_deep_clean">Derin Temizlik</string>
+    <string name="storage_fs">Dosya Sistemi: %s</string>
+    <string name="storage_health">Sağlık: %s</string>
+    <string name="storage_health_busy">Çok yoğun</string>
+    <string name="storage_health_good">İyi</string>
+    <string name="storage_internal">Dahili Depolama</string>
+    <string name="storage_io_queue">I/O Kuyruğu: %s</string>
+    <string name="storage_type">Tür: %s</string>
+    <string name="version">Sürüm %s</string>
+    <string name="zram_active">zRAM: %s</string>
+
+    <string name="cleaning_msg">Temizleniyor...</string>
+    <string name="cache_cleared_toast">%s önbellek temizlendi</string>
+    <string name="apps_cleared_toast">(%d uygulama)</string>
+    <string name="access_errors_toast">%d uygulamaya erişilemedi</string>
+    <string name="deep_cache_clear_btn">Derin Önbellek Temizliği</string>
+    <string name="cache_clear_note_text">Not: Android 12+ güvenlik kısıtlamaları nedeniyle yalnızca harici depolama önbellekleri temizlenebilir. Tam temizlik için Ayarlar > Depolama > Önbellek Verileri kullanın.</string>
+
+    <string name="revive_stuck_msg">%s takılı durumda. Sistem ayarlarında uygulamayı zorla durdurun, ardından buradan tekrar başlatın.</string>
+    <string name="revive_ram_freed">+%dMB RAM boşaltıldı. </string>
+    <string name="revive_apps_cleaned">%d uygulama temizlendi. </string>
+    <string name="revive_io_wait">Depolama kuyruğu beklendi. </string>
+    <string name="revive_ram_insufficient">RAM hâlâ yetersiz — tekrar deneyin.</string>
+    <string name="revive_app_launched">Uygulama başlatıldı.</string>
+</resources>

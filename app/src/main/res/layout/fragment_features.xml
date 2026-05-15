@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/features_title"
+            android:textAppearance="@style/TextAppearance.BD.Label" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Kill Apps -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@+id/switchKillApps"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/kill_bg_apps"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/kill_bg_apps_desc"
+                            android:textAppearance="@style/TextAppearance.BD.Caption" />
+                        <TextView
+                            android:id="@+id/tvPermKillApps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="İzin gerekli"
+                            android:textColor="@color/colorRed"
+                            android:textSize="10sp"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchKillApps"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        app:thumbTint="@color/colorAccent"
+                        app:trackTint="@color/colorAccentDim" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnHelpKillApps"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/switchKillApps"
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/fix"
+                        android:textColor="@color/colorAccent"
+                        android:visibility="gone"
+                        android:padding="0dp"/>
+                </RelativeLayout>
+                <View style="@style/Divider" />
+
+                <!-- Kill All -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@+id/switchKillAll"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/kill_all_apps"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/kill_all_apps_desc"
+                            android:textAppearance="@style/TextAppearance.BD.Caption" />
+                        <TextView
+                            android:id="@+id/tvPermKillAll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="İzin gerekli"
+                            android:textColor="@color/colorRed"
+                            android:textSize="10sp"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchKillAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        app:thumbTint="@color/colorAccent"
+                        app:trackTint="@color/colorAccentDim" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnHelpKillAll"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/switchKillAll"
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/fix"
+                        android:textColor="@color/colorAccent"
+                        android:visibility="gone"
+                        android:padding="0dp"/>
+                </RelativeLayout>
+                <View style="@style/Divider" />
+
+                <!-- Clear Clipboard -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@+id/switchClearClipboard"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/clear_clipboard"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchClearClipboard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        app:thumbTint="@color/colorAccent"
+                        app:trackTint="@color/colorAccentDim" />
+                </RelativeLayout>
+                <View style="@style/Divider" />
+
+                <!-- Optimize Before Launch -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@+id/switchOptimizeLaunch"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/optimize_before_launch"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchOptimizeLaunch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        app:thumbTint="@color/colorAccent"
+                        app:trackTint="@color/colorAccentDim" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="TEMİZLİK ARAÇLARI"
+            android:textAppearance="@style/TextAppearance.BD.Label" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDeepCacheClear"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Derin Önbellek Temizliği"
+                    app:cornerRadius="12dp"
+                    android:backgroundTint="@color/colorAccent" />
+
+                <TextView
+                    android:id="@+id/tvCacheClearNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="@style/TextAppearance.BD.Caption"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    tools:text="Not: Android 12+ güvenlik kısıtlamaları nedeniyle yalnızca harici depolama önbellekleri temizlenebilir." />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/auto_boost_title"
+            android:textAppearance="@style/TextAppearance.BD.Label" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Auto Boot -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@+id/switchAutoBootBoot"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/boost_on_startup"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchAutoBootBoot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        app:thumbTint="@color/colorAccent"
+                        app:trackTint="@color/colorAccentDim" />
+                </RelativeLayout>
+                <View style="@style/Divider" />
+
+                <!-- Auto Boost Screen Off -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@+id/switchAutoBoostScreen"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/boost_on_screen_off"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchAutoBoostScreen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        app:thumbTint="@color/colorAccent"
+                        app:trackTint="@color/colorAccentDim" />
+                </RelativeLayout>
+                <View style="@style/Divider" />
+
+                <!-- Smart Boost -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@+id/switchSmartBoost"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/smart_boost_enable"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/smart_boost_desc"
+                            android:textAppearance="@style/TextAppearance.BD.Caption" />
+                        <TextView
+                            android:id="@+id/tvPermSmartBoost"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="İzin gerekli"
+                            android:textColor="@color/colorRed"
+                            android:textSize="10sp"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchSmartBoost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        app:thumbTint="@color/colorAccent"
+                        app:trackTint="@color/colorAccentDim" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnHelpSmartBoost"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/switchSmartBoost"
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/fix"
+                        android:textColor="@color/colorAccent"
+                        android:visibility="gone"
+                        android:padding="0dp"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/scheduled_boost_title"
+            android:textAppearance="@style/TextAppearance.BD.Label" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvScheduledTimes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:textAppearance="@style/TextAppearance.BD.Body"
+                    tools:text="Boost times: 08:00, 22:00" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAddBoostTime"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/add_time"
+                        app:cornerRadius="12dp"
+                        android:backgroundTint="@color/colorAccent" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnClearTimes"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/clear_times"
+                        app:cornerRadius="12dp"
+                        app:strokeColor="@color/colorBorder"
+                        android:textColor="@color/colorTextSecondary" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvPermAlarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Alarm izni gerekli"
+                    android:textColor="@color/colorRed"
+                    android:textSize="11sp"
+                    android:visibility="gone" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnHelpAlarm"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fix"
+                    android:textColor="@color/colorAccent"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</ScrollView>

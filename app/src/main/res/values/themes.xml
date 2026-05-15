@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.BoostDroid" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorTextPrimary</item>
+        <item name="android:colorBackground">@color/colorBg</item>
+        <item name="android:windowBackground">@color/colorBg</item>
+        <item name="android:statusBarColor">@color/colorBg</item>
+        <item name="android:navigationBarColor">@color/colorBg</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+
+        <!-- Premium UI styles -->
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.BoostDroid.TitleLarge</item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.BoostDroid.LabelMedium</item>
+    </style>
+
+    <style name="TextAppearance.BoostDroid.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <style name="TextAppearance.BoostDroid.LabelMedium" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+</resources>

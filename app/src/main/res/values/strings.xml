@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BoostDroid</string>
+    <string name="app_subtitle">Performance Optimizer</string>
+    <string name="nav_dashboard">DASHBOARD</string>
+    <string name="nav_revive">QUICK REVIVE</string>
+    <string name="nav_storage">STORAGE</string>
+    <string name="nav_features">FEATURES</string>
+    <string name="nav_dns">DNS SELECTOR</string>
+    <string name="nav_settings">SETTINGS</string>
+    <string name="nav_device">DEVICE INFO</string>
+
+    <string name="ram_usage">RAM USAGE</string>
+    <string name="storage_usage">STORAGE</string>
+    <string name="cpu_usage">CPU</string>
+    <string name="battery">BATTERY</string>
+    <string name="network_speed">NETWORK SPEED</string>
+    <string name="io_label">STORAGE I/O</string>
+    <string name="top_ram_apps">TOP RAM CONSUMERS</string>
+    <string name="live">LIVE</string>
+
+    <string name="calculating">Calculating...</string>
+    <string name="boost">BOOST</string>
+    <string name="boosting">OPTIMIZING...</string>
+    <string name="optimized">OPTIMIZED</string>
+    <string name="ram_usage_pct">%1$d%%</string>
+    <string name="app_mem_text">%1$d MB</string>
+    <string name="boost_result_msg">%1$d MB freed | %2$d MB cache cleared | %3$d apps closed</string>
+    <string name="system_clean">System is already clean</string>
+
+    <string name="brand">BRAND</string>
+    <string name="model">MODEL</string>
+    <string name="soc">SOC (PROCESSOR)</string>
+    <string name="cores">CORES</string>
+    <string name="ram">RAM</string>
+    <string name="storage">STORAGE</string>
+    <string name="android_ver">ANDROID VERSION</string>
+    <string name="security_patch">SECURITY PATCH</string>
+    <string name="resolution">RESOLUTION</string>
+    <string name="dpi">DPI</string>
+
+    <string name="device_title">DEVICE</string>
+    <string name="processor_title">PROCESSOR</string>
+    <string name="memory_title">MEMORY</string>
+    <string name="software_title">SOFTWARE</string>
+    <string name="display_title">DISPLAY</string>
+
+    <string name="features_title">GENERAL SETTINGS</string>
+    <string name="auto_boost_title">AUTO BOOST</string>
+    <string name="scheduled_boost_title">SCHEDULED BOOST</string>
+
+    <string name="kill_bg_apps">Close Background Apps</string>
+    <string name="kill_bg_apps_desc">Gentle / Normal mode</string>
+    <string name="kill_all_apps">Close All Apps</string>
+    <string name="kill_all_apps_desc">Aggressive mode — all non-system apps</string>
+    <string name="clear_cache">Clear Cache</string>
+    <string name="clear_clipboard">Clear Clipboard</string>
+    <string name="optimize_before_launch">Optimize Before Launch</string>
+    <string name="boost_on_startup">Boost on Startup</string>
+    <string name="boost_on_screen_off">Boost on Screen Off</string>
+    <string name="smart_boost_enable">Smart Auto Boost</string>
+    <string name="smart_boost_desc">Automatically cleans when RAM reaches critical levels</string>
+    <string name="smart_boost_notif">Smart Boost activated: %1$d MB cleared</string>
+
+    <string name="add_time">+ Add Time</string>
+    <string name="clear_times">Clear</string>
+    <string name="no_scheduled">No scheduled boost</string>
+    <string name="scheduled_at">Boost times: %s</string>
+
+    <string name="settings_title">APPEARANCE</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="language">LANGUAGE</string>
+    <string name="lang_turkish">Türkçe</string>
+    <string name="lang_english">English</string>
+    <string name="boost_intensity_title">BOOST INTENSITY</string>
+    <string name="intensity_gentle">Gentle</string>
+    <string name="intensity_normal">Normal</string>
+    <string name="intensity_aggressive">Aggressive</string>
+    <string name="notify_boost">Send notification after boost</string>
+    <string name="boost_animation">Boost animation</string>
+    <string name="permissions_title">PERMISSION STATUS</string>
+    <string name="perm_usage">Usage Data</string>
+    <string name="perm_notif">Notifications</string>
+    <string name="perm_alarm">Exact Alarm</string>
+    <string name="perm_granted">GRANTED</string>
+    <string name="perm_denied">DENIED</string>
+    <string name="perm_grant">Grant Permission</string>
+    <string name="perm_skip">Skip</string>
+    <string name="fix">FIX</string>
+
+    <string name="dns_title">DNS PROVIDERS</string>
+    <string name="dns_apply">APPLY</string>
+    <string name="dns_validating">Validating DNS...</string>
+    <string name="dns_success">DNS active and working</string>
+    <string name="dns_fail">DNS applied but no internet access</string>
+    <string name="dns_setup_title">One-Time Setup</string>
+    <string name="dns_setup_info">To change DNS, run the ADB command once.</string>
+    <string name="dns_copy_adb">COPY ADB COMMAND</string>
+    <string name="dns_adb_copied">Command copied</string>
+    <string name="dns_applied">DNS successfully applied</string>
+    <string name="dns_current">Active DNS: %s</string>
+    <string name="dns_default">Default (System)</string>
+    <string name="dns_permission_error">Required permission not found to change DNS</string>
+
+    <string name="perm_help_usage_title">Usage Access</string>
+    <string name="perm_help_usage_desc">\'Usage Access\' permission is required to close apps and track RAM usage.</string>
+    <string name="perm_help_alarm_title">Exact Alarms</string>
+    <string name="perm_help_alarm_desc">\'Exact Alarms\' permission is required for scheduled boost tasks to run on time.</string>
+
+    <string name="perm_rationale_title">Permissions Required</string>
+    <string name="perm_rationale_desc">BoostDroid needs some system permissions to perform its functions.</string>
+
+    <string name="about_title">About</string>
+    <string name="accessibility_desc">BoostDroid uses accessibility services to close applications.</string>
+    <string name="battery_charging">Charging</string>
+    <string name="battery_hours">~%s hours left</string>
+    <string name="battery_mah">%d mAh</string>
+    <string name="battery_saver_mode">Battery Saver</string>
+    <string name="battery_unknown_mah">Unknown</string>
+    <string name="compressed_mem">Compressed</string>
+    <string name="cpu_temp">%s°C</string>
+    <string name="cpu_throttle_warning">Processor hot, performance may decrease.</string>
+    <string name="disable_bt_boost">Turn off Bluetooth</string>
+    <string name="disable_wifi_boost">Turn off Wi-Fi</string>
+    <string name="io_read">Read: %s</string>
+    <string name="io_status_busy">Busy</string>
+    <string name="io_status_normal">Normal</string>
+    <string name="io_warning">High Disk Usage</string>
+    <string name="io_write">Write: %s</string>
+    <string name="perm_required_alarm">Exact alarm permission is required.</string>
+    <string name="perm_required_usage">Usage data access is required.</string>
+    <string name="ram_critical_warning">RAM at critical level!</string>
+    <string name="restricted_android_10">Android 10+ restrictions active.</string>
+    <string name="revive_btn">REFRESH</string>
+    <string name="revive_fail">Refresh failed.</string>
+    <string name="revive_search_hint">Search apps...</string>
+    <string name="revive_success">App refreshed. %1$d MB freed</string>
+    <string name="revive_title">QUICK REVIVE</string>
+    <string name="smart_boost_title">SMART BOOST</string>
+    <string name="storage_clean_result">%1$d MB area cleared (%2$d apps).</string>
+    <string name="storage_cleaning">Cleaning...</string>
+    <string name="storage_deep_clean">Deep Clean</string>
+    <string name="storage_fs">File System: %s</string>
+    <string name="storage_health">Health: %s</string>
+    <string name="storage_health_busy">Very busy</string>
+    <string name="storage_health_good">Good</string>
+    <string name="storage_internal">Internal Storage</string>
+    <string name="storage_io_queue">I/O Queue: %s</string>
+    <string name="storage_type">Type: %s</string>
+    <string name="version">Version %s</string>
+    <string name="zram_active">zRAM: %s</string>
+
+    <string name="cleaning_msg">Cleaning...</string>
+    <string name="cache_cleared_toast">%s cache cleared</string>
+    <string name="apps_cleared_toast">(%d apps)</string>
+    <string name="access_errors_toast">%d apps could not be accessed</string>
+    <string name="deep_cache_clear_btn">Deep Cache Clear</string>
+    <string name="cache_clear_note_text">Note: Due to Android 12+ security restrictions, only external storage caches can be cleared. Use Settings > Storage > Cached Data for full cleaning.</string>
+
+    <string name="revive_stuck_msg">%s is stuck. Please force stop the app in system settings, then try launching it again from here.</string>
+    <string name="revive_ram_freed">+%dMB RAM freed. </string>
+    <string name="revive_apps_cleaned">%d apps cleaned. </string>
+    <string name="revive_io_wait">Waited for storage queue. </string>
+    <string name="revive_ram_insufficient">RAM still insufficient — try again.</string>
+    <string name="revive_app_launched">App launched.</string>
+
+    <string name="ram_total">%1$s MB total</string>
+    <string name="ram_details">Free: %1$sMB  ·  Cache: %2$sMB</string>
+    <string name="io_active">Active</string>
+    <string name="io_idle">Idle</string>
+    <string name="net_connected">Connected</string>
+    <string name="storage_used_text">%1$s used</string>
+    <string name="storage_total_text">%1$s total</string>
+    <string name="battery_remaining">~%s remaining</string>
+    <string name="battery_health">Battery Health: Good</string>
+    <string name="boost_result_detail">After Boost: %1$d apps cleaned</string>
+    <string name="boost_ram_freed">+%1$dMB RAM freed</string>
+    <string name="boost_apps_cleaned">%1$d apps cleaned</string>
+    <string name="boost_ram_returned">RAM returned to system</string>
+    <string name="boost_already_optimized">System is already optimized</string>
+    <string name="live_just_now">just now</string>
+    <string name="live_no_apps">no apps found</string>
+    <string name="live_ago">LIVE · %1$ds ago</string>
+    <string name="live_updating">UPDATING...</string>
+</resources>

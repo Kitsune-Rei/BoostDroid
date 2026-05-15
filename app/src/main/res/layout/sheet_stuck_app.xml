@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/colorBg">
+
+    <TextView
+        android:id="@+id/tvStuckTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Uygulama yanıt vermiyor"
+        android:textAppearance="@style/TextAppearance.BD.Value"
+        android:textColor="@color/colorRed"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1. Ayarlar → Uygulamalar → [Uygulama Adı] → Zorla Durdur\n2. Bu ekrana geri dönün\n3. \'Başlat\' butonuna basın"
+        android:textAppearance="@style/TextAppearance.BD.Body"
+        android:textColor="@color/colorTextPrimary"
+        android:lineSpacingExtra="4dp"
+        android:layout_marginBottom="24dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Android bu uygulamanın çalışmasını engelliyor. Sistem güvenlik kısıtlaması nedeniyle BoostDroid bunu otomatik yapamıyor."
+        android:textAppearance="@style/TextAppearance.BD.Caption"
+        android:textColor="@color/colorTextSecondary"
+        android:layout_marginBottom="24dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGoToSettings"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Ayarlara Git"
+        app:cornerRadius="16dp"
+        android:backgroundTint="@color/colorAccent" />
+
+</LinearLayout>

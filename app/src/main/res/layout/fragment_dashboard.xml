@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:id="@+id/dashboardContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        android:background="@drawable/bg_page_gradient">
+
+        <!-- Boost Button -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginBottom="24dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBoost"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/boost"
+                android:textAppearance="@style/TextAppearance.BD.Button"
+                android:letterSpacing="0.20"
+                app:cornerRadius="22dp"
+                android:backgroundTint="@null"
+                android:background="@drawable/bg_boost_button"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="#665C50CC" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/boostProgress"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="24dp"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:indicatorColor="@color/white"
+                app:indicatorSize="20dp"
+                app:trackThickness="2dp" />
+        </FrameLayout>
+
+        <!-- RAM Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardRam"
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/tvRamLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@+id/tvRamBadge"
+                        android:layout_alignParentStart="true"
+                        android:text="@string/ram_usage"
+                        android:textAppearance="@style/TextAppearance.BD.Label" />
+
+                    <TextView
+                        android:id="@+id/tvRamBadge"
+                        style="@style/Badge.BD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/bg_card_border"
+                        android:backgroundTint="@color/colorAccentDim"
+                        android:textColor="@color/colorAccent"
+                        tools:text="%58" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvRamUsed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.BD.Value"
+                    tools:text="2229 MB" />
+
+                <TextView
+                    android:id="@+id/tvRamTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textAppearance="@style/TextAppearance.BD.Caption"
+                    tools:text="3782 MB toplam" />
+
+                <ProgressBar
+                    android:id="@+id/progressRam"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:progressDrawable="@drawable/progress_accent"
+                    tools:progress="58" />
+
+                <TextView
+                    android:id="@+id/tvRamDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.BD.Caption"
+                    tools:text="Boş: 1553MB  ·  Önbellek: 1452MB" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- CPU Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardCpu"
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/tvCpuLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@+id/tvCpuBadge"
+                        android:layout_alignParentStart="true"
+                        android:text="@string/cpu_usage"
+                        android:textAppearance="@style/TextAppearance.BD.Label" />
+
+                    <TextView
+                        android:id="@+id/tvCpuBadge"
+                        style="@style/Badge.BD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/bg_card_border"
+                        android:backgroundTint="@color/colorRedDim"
+                        android:textColor="@color/colorRed"
+                        tools:text="%11" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvCpuModel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.BD.Body"
+                    android:textColor="@color/colorTextSecondary"
+                    tools:text="MT6765" />
+
+                <TextView
+                    android:id="@+id/tvCpuFreq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textAppearance="@style/TextAppearance.BD.Caption"
+                    tools:text="1.8 GHz / 2.0 GHz max" />
+
+                <ProgressBar
+                    android:id="@+id/progressCpu"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:progressDrawable="@drawable/progress_red"
+                    tools:progress="11" />
+
+                <TextView
+                    android:id="@+id/tvCpuDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.BD.Caption"
+                    tools:text="42°C  ·  Çekirdek: 8" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Storage Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardStorage"
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/tvStorageLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@+id/tvStorageBadge"
+                        android:layout_alignParentStart="true"
+                        android:text="@string/storage_usage"
+                        android:textAppearance="@style/TextAppearance.BD.Label" />
+
+                    <TextView
+                        android:id="@+id/tvStorageBadge"
+                        style="@style/Badge.BD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/bg_card_border"
+                        android:backgroundTint="@color/colorGreenDim"
+                        android:textColor="@color/colorGreen"
+                        tools:text="%34" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvStorageUsed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.BD.Body"
+                    android:textColor="@color/colorTextPrimary"
+                    tools:text="36 GB kullanıldı" />
+
+                <TextView
+                    android:id="@+id/tvStorageTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textAppearance="@style/TextAppearance.BD.Caption"
+                    tools:text="103 GB toplam" />
+
+                <ProgressBar
+                    android:id="@+id/progressStorage"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:progressDrawable="@drawable/progress_green"
+                    tools:progress="34" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Battery + Network Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBattery"
+                style="@style/Card.BD"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/battery"
+                        android:textAppearance="@style/TextAppearance.BD.Label" />
+
+                    <TextView
+                        android:id="@+id/tvBatteryPercent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorAmber"
+                        android:textSize="24sp"
+                        tools:text="28%" />
+
+                    <TextView
+                        android:id="@+id/tvBatteryRemaining"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.BD.Caption"
+                        tools:text="~4.2 saat kaldı" />
+
+                    <TextView
+                        android:id="@+id/tvBatteryMah"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:textAppearance="@style/TextAppearance.BD.Caption"
+                        tools:text="924 mAh kaldı" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBattery"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:progressDrawable="@drawable/progress_amber"
+                        tools:progress="28" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardNetwork"
+                style="@style/Card.BD"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="AĞ HIZI"
+                        android:textAppearance="@style/TextAppearance.BD.Label" />
+
+                    <TextView
+                        android:id="@+id/tvNetDown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorBlue"
+                        android:textSize="14sp"
+                        tools:text="↓ 88 KB/s" />
+
+                    <TextView
+                        android:id="@+id/tvNetUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:textAppearance="@style/TextAppearance.BD.Body"
+                        tools:text="↑ 21 KB/s" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/vNetStatusDot"
+                            android:layout_width="6dp"
+                            android:layout_height="6dp"
+                            android:layout_marginEnd="6dp"
+                            android:background="@drawable/bg_card_border"
+                            android:backgroundTint="@color/colorGreen" />
+
+                        <TextView
+                            android:id="@+id/tvNetStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.BD.Caption"
+                            tools:text="WiFi · Bağlı" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <!-- Storage I/O Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardIo"
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:id="@+id/tvIoLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@+id/tvIoBadge"
+                        android:layout_alignParentStart="true"
+                        android:text="@string/io_label"
+                        android:textAppearance="@style/TextAppearance.BD.Label" />
+
+                    <TextView
+                        android:id="@+id/tvIoBadge"
+                        style="@style/Badge.BD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/bg_card_border"
+                        android:backgroundTint="@color/colorSurfaceHigh"
+                        android:textColor="@color/colorTextSecondary"
+                        tools:text="Boşta" />
+                </RelativeLayout>
+
+                <!-- Read Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="52dp"
+                        android:layout_height="wrap_content"
+                        android:text="Okuma"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:textAppearance="@style/TextAppearance.BD.Label" />
+
+                    <TextView
+                        android:id="@+id/tvIoReadValue"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:paddingEnd="12dp"
+                        android:text="0 KB/s"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="12sp" />
+
+                    <ProgressBar
+                        android:id="@+id/progressIoRead"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:progressDrawable="@drawable/progress_green" />
+                </LinearLayout>
+
+                <!-- Write Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="52dp"
+                        android:layout_height="wrap_content"
+                        android:text="Yazma"
+                        android:textAppearance="@style/TextAppearance.BD.Label" />
+
+                    <TextView
+                        android:id="@+id/tvIoWriteValue"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:paddingEnd="12dp"
+                        android:text="0 KB/s"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="12sp" />
+
+                    <ProgressBar
+                        android:id="@+id/progressIoWrite"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:progressDrawable="@drawable/progress_amber" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Top RAM Apps Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardTopApps"
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvTopAppsLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@+id/layoutLiveBadge"
+                        android:text="@string/top_ram_apps"
+                        android:textAppearance="@style/TextAppearance.BD.Label" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutLiveBadge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/bg_card_border"
+                        android:backgroundTint="@color/colorRedDim"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp">
+
+                        <TextView
+                            android:id="@+id/tvLiveStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            android:text="@string/live"
+                            android:textColor="@color/colorRed"
+                            android:textSize="10sp"
+                            android:fontFamily="sans-serif-medium"
+                            tools:ignore="SmallSp" />
+
+                        <View
+                            android:id="@+id/vLiveDot"
+                            android:layout_width="6dp"
+                            android:layout_height="6dp"
+                            android:background="@drawable/bg_card_border"
+                            android:backgroundTint="@color/colorRed" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardBoostResult"
+                    style="@style/Card.BD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="@color/colorGreenDim"
+                    app:strokeColor="@color/colorGreen">
+                    <TextView
+                        android:id="@+id/tvBoostResultDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        android:text="Boost sonrası: 0 uygulama temizlendi"
+                        android:textAppearance="@style/TextAppearance.BD.Caption"
+                        android:textColor="@color/colorGreen"
+                        android:gravity="center" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTopApps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingBottom="8dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</ScrollView>

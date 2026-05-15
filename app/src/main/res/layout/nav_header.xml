@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:background="@color/colorSurface"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_boost_button"
+        android:gravity="center"
+        android:text="BD"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BoostDroid"
+        android:textAppearance="@style/TextAppearance.BD.ValueSm"
+        android:textColor="@color/colorTextPrimary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Performans Optimizatörü"
+        android:textAppearance="@style/TextAppearance.BD.Caption" />
+
+</LinearLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="gap_micro">4dp</dimen>
+    <dimen name="gap_small">8dp</dimen>
+    <dimen name="padding_card_v">12dp</dimen>
+    <dimen name="padding_card_h">16dp</dimen>
+    <dimen name="padding_card_large">20dp</dimen>
+    <dimen name="gap_cards">12dp</dimen>
+    <dimen name="margin_page">16dp</dimen>
+</resources>

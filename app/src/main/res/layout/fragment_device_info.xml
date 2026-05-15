@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Device Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/device_title"
+            android:textAppearance="@style/TextAppearance.BD.Label" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardDevice"
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="8dp">
+                <!-- Brand -->
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="48dp" android:paddingHorizontal="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_centerVertical="true" android:text="@string/brand" android:textColor="@color/colorTextSecondary" android:textSize="13sp" />
+                    <TextView android:id="@+id/tvBrand" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:textColor="@color/colorTextPrimary" android:textSize="13sp" android:textStyle="bold" tools:text="Google" />
+                </RelativeLayout>
+                <View style="@style/Divider" />
+                <!-- Model -->
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="48dp" android:paddingHorizontal="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_centerVertical="true" android:text="@string/model" android:textColor="@color/colorTextSecondary" android:textSize="13sp" />
+                    <TextView android:id="@+id/tvModel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:textColor="@color/colorTextPrimary" android:textSize="13sp" android:textStyle="bold" tools:text="Pixel 7" />
+                </RelativeLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Processor Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/processor_title"
+            android:textAppearance="@style/TextAppearance.BD.Label" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardProcessor"
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="8dp">
+                <!-- SOC -->
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="48dp" android:paddingHorizontal="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_centerVertical="true" android:text="@string/soc" android:textColor="@color/colorTextSecondary" android:textSize="13sp" />
+                    <TextView android:id="@+id/tvCpuName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:textColor="@color/colorTextPrimary" android:textSize="13sp" android:textStyle="bold" tools:text="Tensor G2" />
+                </RelativeLayout>
+                <View style="@style/Divider" />
+                <!-- Cores -->
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="48dp" android:paddingHorizontal="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_centerVertical="true" android:text="@string/cores" android:textColor="@color/colorTextSecondary" android:textSize="13sp" />
+                    <TextView android:id="@+id/tvCores" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:textColor="@color/colorTextPrimary" android:textSize="13sp" android:textStyle="bold" tools:text="8" />
+                </RelativeLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Memory Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/memory_title"
+            android:textAppearance="@style/TextAppearance.BD.Label" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardMemory"
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="8dp">
+                <!-- RAM -->
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="48dp" android:paddingHorizontal="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_centerVertical="true" android:text="@string/ram" android:textColor="@color/colorTextSecondary" android:textSize="13sp" />
+                    <TextView android:id="@+id/tvTotalRam" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:textColor="@color/colorTextPrimary" android:textSize="13sp" android:textStyle="bold" tools:text="8 GB" />
+                </RelativeLayout>
+                <View style="@style/Divider" />
+                <!-- Storage -->
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="48dp" android:paddingHorizontal="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_centerVertical="true" android:text="@string/storage" android:textColor="@color/colorTextSecondary" android:textSize="13sp" />
+                    <TextView android:id="@+id/tvTotalStorage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:textColor="@color/colorTextPrimary" android:textSize="13sp" android:textStyle="bold" tools:text="128 GB" />
+                </RelativeLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Software Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/software_title"
+            android:textAppearance="@style/TextAppearance.BD.Label" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardSoftware"
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="8dp">
+                <!-- Android -->
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="48dp" android:paddingHorizontal="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_centerVertical="true" android:text="@string/android_ver" android:textColor="@color/colorTextSecondary" android:textSize="13sp" />
+                    <TextView android:id="@+id/tvAndroid" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:textColor="@color/colorTextPrimary" android:textSize="13sp" android:textStyle="bold" tools:text="13" />
+                </RelativeLayout>
+                <View style="@style/Divider" />
+                <!-- Security Patch -->
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="48dp" android:paddingHorizontal="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_centerVertical="true" android:text="@string/security_patch" android:textColor="@color/colorTextSecondary" android:textSize="13sp" />
+                    <TextView android:id="@+id/tvSecurityPatch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:textColor="@color/colorTextPrimary" android:textSize="13sp" android:textStyle="bold" tools:text="2023-05-05" />
+                </RelativeLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Display Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/display_title"
+            android:textAppearance="@style/TextAppearance.BD.Label" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardDisplay"
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="8dp">
+                <!-- Resolution -->
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="48dp" android:paddingHorizontal="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_centerVertical="true" android:text="@string/resolution" android:textColor="@color/colorTextSecondary" android:textSize="13sp" />
+                    <TextView android:id="@+id/tvResolution" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:textColor="@color/colorTextPrimary" android:textSize="13sp" android:textStyle="bold" tools:text="1080x2400" />
+                </RelativeLayout>
+                <View style="@style/Divider" />
+                <!-- DPI -->
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="48dp" android:paddingHorizontal="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_centerVertical="true" android:text="@string/dpi" android:textColor="@color/colorTextSecondary" android:textSize="13sp" />
+                    <TextView android:id="@+id/tvDpi" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:textColor="@color/colorTextPrimary" android:textSize="13sp" android:textStyle="bold" tools:text="420" />
+                </RelativeLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</ScrollView>

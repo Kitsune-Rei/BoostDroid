@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_dashboard"
+            android:title="@string/nav_dashboard" />
+        <item
+            android:id="@+id/nav_features"
+            android:icon="@drawable/ic_tune"
+            android:title="@string/nav_features" />
+        <item
+            android:id="@+id/nav_dns"
+            android:icon="@drawable/ic_dns"
+            android:title="@string/nav_dns" />
+        <item
+            android:id="@+id/nav_revive"
+            android:icon="@drawable/ic_rocket_launch"
+            android:title="@string/nav_revive" />
+        <item
+            android:id="@+id/nav_storage"
+            android:icon="@drawable/ic_storage"
+            android:title="@string/nav_storage" />
+        <item
+            android:id="@+id/nav_device"
+            android:icon="@drawable/ic_phone_android"
+            android:title="@string/nav_device" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/nav_settings" />
+    </group>
+
+</menu>

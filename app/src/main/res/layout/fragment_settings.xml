@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Theme & Language Card -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/settings_title"
+            android:textAppearance="@style/TextAppearance.BD.Label" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Dark Theme -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/dark_theme"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="14sp" />
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchDarkTheme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        app:thumbTint="@color/colorAccent"
+                        app:trackTint="@color/colorAccentDim" />
+                </RelativeLayout>
+                <View style="@style/Divider" />
+
+                <!-- Notify Boost -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/notify_boost"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="14sp" />
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchNotifyBoost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        app:thumbTint="@color/colorAccent"
+                        app:trackTint="@color/colorAccentDim" />
+                </RelativeLayout>
+                <View style="@style/Divider" />
+
+                <!-- Boost Anim -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/boost_animation"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="14sp" />
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchBoostAnim"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        app:thumbTint="@color/colorAccent"
+                        app:trackTint="@color/colorAccentDim" />
+                </RelativeLayout>
+                <View style="@style/Divider" />
+
+                <!-- Language -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/language"
+                        android:textAppearance="@style/TextAppearance.BD.Label"
+                        android:layout_marginBottom="12dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnTurkish"
+                            style="@style/Widget.Material3.Button"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            android:text="@string/lang_turkish"
+                            app:cornerRadius="12dp"
+                            android:backgroundTint="@color/colorSurfaceHigh"
+                            android:textColor="@color/colorTextPrimary" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnEnglish"
+                            style="@style/Widget.Material3.Button"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/lang_english"
+                            app:cornerRadius="12dp"
+                            android:backgroundTint="@color/colorSurfaceHigh"
+                            android:textColor="@color/colorTextPrimary" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Permissions Card -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/permissions_title"
+            android:textAppearance="@style/TextAppearance.BD.Label" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Usage Status -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/perm_usage"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="14sp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/tvStatusUsage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/perm_denied"
+                            android:textColor="@color/colorRed"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:layout_marginEnd="12dp"/>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnFixUsage"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fix"
+                            app:cornerRadius="8dp"
+                            android:paddingVertical="0dp"/>
+                    </LinearLayout>
+                </RelativeLayout>
+                <View style="@style/Divider" />
+
+                <!-- Notif Status -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/perm_notif"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="14sp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/tvStatusNotif"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/perm_denied"
+                            android:textColor="@color/colorRed"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:layout_marginEnd="12dp"/>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnFixNotif"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fix"
+                            app:cornerRadius="8dp"
+                            android:paddingVertical="0dp"/>
+                    </LinearLayout>
+                </RelativeLayout>
+                <View style="@style/Divider" />
+
+                <!-- Alarm Status -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/perm_alarm"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="14sp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/tvStatusAlarm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/perm_denied"
+                            android:textColor="@color/colorRed"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:layout_marginEnd="12dp"/>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnFixAlarm"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fix"
+                            app:cornerRadius="8dp"
+                            android:paddingVertical="0dp"/>
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Version Info -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BoostDroid"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-medium" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="v1.2  ·  Root gerektirmez  ·  Android 12+"
+                android:textAppearance="@style/TextAppearance.BD.Caption"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

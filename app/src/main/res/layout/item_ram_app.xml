@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivAppIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="16dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+        android:background="@color/colorSurfaceHigh"
+        android:scaleType="centerInside"
+        tools:src="@android:drawable/sym_def_app_icon" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp">
+
+            <TextView
+                android:id="@+id/tvAppName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/tvAppMem"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="Chrome" />
+
+            <TextView
+                android:id="@+id/tvAppMem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="12sp"
+                tools:text="419 MB" />
+
+            <TextView
+                android:id="@+id/tvAppDelta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="14dp"
+                android:textSize="10sp"
+                android:fontFamily="sans-serif-medium"
+                android:visibility="gone"
+                tools:text="▲ 12MB"
+                tools:visibility="visible" />
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/pbAppMem"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:progressDrawable="@drawable/progress_accent"
+            tools:progress="60" />
+
+    </LinearLayout>
+</LinearLayout>

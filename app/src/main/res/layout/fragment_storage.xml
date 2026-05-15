@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/storage_usage"
+            android:textAppearance="@style/TextAppearance.BD.Label" />
+
+        <!-- Main Storage Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvStoragePercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorGreen"
+                    android:textSize="48sp"
+                    android:fontFamily="sans-serif-light"
+                    tools:text="34%" />
+                <TextView
+                    android:id="@+id/tvStorageDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.BD.Body"
+                    tools:text="36 GB / 103 GB" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Details Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Card.BD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="8dp">
+
+                <!-- FS Type -->
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="48dp" android:paddingHorizontal="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_centerVertical="true" android:text="DOSYA SİSTEMİ" android:textAppearance="@style/TextAppearance.BD.Label" />
+                    <TextView android:id="@+id/tvFsType" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:textColor="@color/colorTextPrimary" android:textSize="13sp" android:textStyle="bold" tools:text="EXT4" />
+                </RelativeLayout>
+                <View style="@style/Divider" />
+
+                <!-- Storage Type -->
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="48dp" android:paddingHorizontal="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_centerVertical="true" android:text="TİP" android:textAppearance="@style/TextAppearance.BD.Label" />
+                    <TextView android:id="@+id/tvStorageType" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:textColor="@color/colorTextPrimary" android:textSize="13sp" android:textStyle="bold" tools:text="UFS" />
+                </RelativeLayout>
+                <View style="@style/Divider" />
+
+                <!-- Queue Depth -->
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="48dp" android:paddingHorizontal="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_centerVertical="true" android:text="KUYRUK" android:textAppearance="@style/TextAppearance.BD.Label" />
+                    <TextView android:id="@+id/tvQueueDepth" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:textColor="@color/colorTextPrimary" android:textSize="13sp" tools:text="0" />
+                </RelativeLayout>
+                <View style="@style/Divider" />
+
+                <!-- Health -->
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="48dp" android:paddingHorizontal="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_centerVertical="true" android:text="DURUM" android:textAppearance="@style/TextAppearance.BD.Label" />
+                    <TextView android:id="@+id/tvStorageHealth" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:textSize="13sp" android:textStyle="bold" tools:text="İyi" />
+                </RelativeLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Deep Clean Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClearCache"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="DERİN ÖNBELLEK TEMİZLİĞİ"
+            android:textAppearance="@style/TextAppearance.BD.Button"
+            android:letterSpacing="0.1"
+            app:cornerRadius="22dp"
+            android:backgroundTint="@color/colorGreen"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+</ScrollView>

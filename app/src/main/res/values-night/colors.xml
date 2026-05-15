@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorBg">#070B14</color>
+    <color name="colorSurface">#0C1220</color>
+    <color name="colorSurfaceHigh">#111828</color>
+    <color name="colorCard">#141B2E</color>
+    <color name="colorBorder">#1C2640</color>
+    <color name="colorTextPrimary">#EEF2FF</color>
+    <color name="colorTextSecondary">#5A6A8A</color>
+    <color name="colorTextTertiary">#2D3A55</color>
+</resources>
