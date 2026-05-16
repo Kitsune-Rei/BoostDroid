@@ -9,18 +9,23 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import androidx.core.app.NotificationCompat
+import kotlinx.coroutines.*
 
 class BoostForegroundService : Service() {
 
     private var screenOffReceiver: BroadcastReceiver? = null
     private val handler = Handler(Looper.getMainLooper())
+    private val serviceScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+
     private val monitorRunnable = object : Runnable {
         override fun run() {
-            val freed = SmartBoostEngine.checkAndBoost(this@BoostForegroundService)
-            if (freed > 0 && PrefsManager.getInstance(this@BoostForegroundService).autoBoostNotification) {
-                showBoostNotification(this@BoostForegroundService, "Otomatik boost yapıldı — $freed MB boşaltıldı")
+            serviceScope.launch {
+                val freed = SmartBoostEngine.checkAndBoost(this@BoostForegroundService)
+                if (freed > 0 && PrefsManager.getInstance(this@BoostForegroundService).autoBoostNotification) {
+                    showBoostNotification(this@BoostForegroundService, "Otomatik boost yapıldı — $freed MB boşaltıldı")
+                }
+                updateNotification()
             }
-            updateNotification()
             handler.postDelayed(this, 30000) // 30 seconds
         }
     }
@@ -29,13 +34,17 @@ class BoostForegroundService : Service() {
         const val CHANNEL_ID = "BoostDroidChannel"
         const val NOTIFICATION_ID = 1
 
-        fun killBackgroundApps(context: Context): Int {
-            val intensity = PrefsManager.getInstance(context).boostIntensity
-            return MemoryUtils.killBackgroundApps(context, intensity)
+        fun killBackgroundApps(context: Context, scope: CoroutineScope) {
+            scope.launch {
+                val intensity = PrefsManager.getInstance(context).boostIntensity
+                MemoryUtils.killBackgroundApps(context, intensity)
+            }
         }
 
-        fun killAllApps(context: Context): Int {
-            return MemoryUtils.killBackgroundApps(context, "aggressive")
+        fun killAllApps(context: Context, scope: CoroutineScope) {
+            scope.launch {
+                MemoryUtils.killBackgroundApps(context, "aggressive")
+            }
         }
 
         fun getBatteryCapacityMah(context: Context): Int {
@@ -93,7 +102,7 @@ class BoostForegroundService : Service() {
             override fun onReceive(context: Context, intent: Intent) {
                 val prefs = PrefsManager.getInstance(context)
                 if (prefs.autoBoostScreenOff) {
-                    killBackgroundApps(context)
+                    killBackgroundApps(context, serviceScope)
                     if (prefs.notifyBoost) {
                         showBoostNotification(context, "Ekran kapalı: Optimize edildi")
                     }
@@ -114,6 +123,7 @@ class BoostForegroundService : Service() {
     override fun onDestroy() {
         screenOffReceiver?.let { unregisterReceiver(it) }
         handler.removeCallbacks(monitorRunnable)
+        serviceScope.cancel()
         super.onDestroy()
     }
 

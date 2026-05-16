@@ -20,16 +20,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.viewModels
 import com.boostdroid.app.databinding.FragmentReviveBinding
 import com.boostdroid.app.databinding.ItemReviveAppBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ReviveFragment : Fragment() {
     private var _binding: FragmentReviveBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: ReviveViewModel by viewModels()
     private lateinit var adapter: ReviveAdapter
     private var allApps = listOf<ReviveAppInfo>()
 
@@ -44,10 +43,26 @@ class ReviveFragment : Fragment() {
         setupRecyclerView()
         setupSearchView()
         setupHeader()
-        loadApps()
+        setupObservers()
+        viewModel.loadApps(requireContext())
     }
 
     private lateinit var prefs: PrefsManager
+
+    private fun setupObservers() {
+        viewModel.appList.observe(viewLifecycleOwner) { apps ->
+            allApps = apps
+            adapter.submitList(apps)
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+
+        viewModel.reviveResult.observe(viewLifecycleOwner) { result ->
+            Toast.makeText(requireContext(), result.message, Toast.LENGTH_LONG).show()
+        }
+    }
 
     private fun setupHeader() {
         binding.btnSystemSettings.setOnClickListener {
@@ -73,12 +88,8 @@ class ReviveFragment : Fragment() {
         binding.rvApps.layoutManager = LinearLayoutManager(requireContext())
         binding.rvApps.adapter = adapter
         
-        // Memory Optimizations (6.8)
         binding.rvApps.setHasFixedSize(true)
         binding.rvApps.setItemViewCacheSize(0)
-        
-        // Use a shared pool if appropriate, but since we have only one RV here,
-        // we'll just stick with these optimizations.
     }
 
     private fun setupSearchView() {
@@ -89,48 +100,6 @@ class ReviveFragment : Fragment() {
                 return true
             }
         })
-    }
-
-    private fun loadApps() {
-        binding.progressBar.visibility = View.VISIBLE
-        lifecycleScope.launch(Dispatchers.IO) {
-            val pm = requireContext().packageManager
-            val packages = pm.getInstalledApplications(PackageManager.GET_META_DATA)
-            val iconCache = IconCache.getInstance()
-
-            val appList = packages.filter { 
-                (it.flags and ApplicationInfo.FLAG_SYSTEM) == 0 
-            }.map { app ->
-                val label = app.loadLabel(pm).toString()
-                var icon = iconCache.get(app.packageName)
-                if (icon == null) {
-                    icon = app.loadIcon(pm)
-                    iconCache.put(app.packageName, icon)
-                }
-                val state = ProcReader.getAppState(requireContext(), app.packageName)
-                ReviveAppInfo(
-                    packageName = app.packageName,
-                    label = label,
-                    icon = icon,
-                    state = state,
-                    estimatedRam = ProcReader.readProcessRamMb(app.uid) // Approximating using UID or PID if available. Actually getLiveRamApps uses PID. Here we can use a fallback.
-                )
-            }.sortedBy { it.label }
-
-            val appsWithRam = appList.map { it.copy(estimatedRam = ProcReader.readProcessRamMb(getProcessId(it.packageName))) }
-
-            withContext(Dispatchers.Main) {
-                if (_binding == null) return@withContext
-                allApps = appsWithRam
-                adapter.submitList(appsWithRam)
-                binding.progressBar.visibility = View.GONE
-            }
-        }
-    }
-
-    private fun getProcessId(packageName: String): Int {
-        val am = requireContext().getSystemService(Context.ACTIVITY_SERVICE) as android.app.ActivityManager
-        return am.runningAppProcesses?.firstOrNull { it.processName.startsWith(packageName) }?.pid ?: 0
     }
 
     private fun filterApps(query: String) {
@@ -147,15 +116,7 @@ class ReviveFragment : Fragment() {
             showStuckBottomSheet(app)
             return
         }
-
-        lifecycleScope.launch(Dispatchers.IO) {
-            val result = QuickReviveManager.revive(requireContext(), app.packageName)
-            withContext(Dispatchers.Main) {
-                if (_binding == null) return@withContext
-                Toast.makeText(requireContext(), result.message, Toast.LENGTH_LONG).show()
-                loadApps() // Refresh list
-            }
-        }
+        viewModel.reviveApp(requireContext(), app.packageName)
     }
 
     private fun showStuckBottomSheet(app: ReviveAppInfo) {

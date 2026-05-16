@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorBg">#070B14</color>
-    <color name="colorSurface">#0C1220</color>
-    <color name="colorSurfaceHigh">#111828</color>
-    <color name="colorCard">#141B2E</color>
-    <color name="colorBorder">#1C2640</color>
-    <color name="colorTextPrimary">#EEF2FF</color>
-    <color name="colorTextSecondary">#5A6A8A</color>
-    <color name="colorTextTertiary">#2D3A55</color>
+    <!-- Dark Mode Colors (Material 3) -->
+    <color name="colorBg">#0F172A</color>
+    <color name="colorSurface">#1E293B</color>
+    <color name="colorCard">#1E293B</color>
+    <color name="colorTextPrimary">#F8FAFC</color>
+    <color name="colorPrimary">#3B82F6</color>
+    <color name="colorSecondary">#8B5CF6</color>
+
+    <!-- Overrides for dark mode if needed -->
+    <color name="colorBorder">#334155</color>
+    <color name="colorSurfaceHigh">#2D3748</color>
+    <color name="colorTextSecondary">#94A3B8</color>
+    <color name="colorTextTertiary">#64748B</color>
 </resources>

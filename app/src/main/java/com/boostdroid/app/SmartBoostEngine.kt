@@ -4,19 +4,21 @@ import android.app.ActivityManager
 import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.os.Build
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 object SmartBoostEngine {
     private var lastBoostTime = 0L
     private var highPressureCount = 0
 
-    fun checkAndBoost(context: Context): Int {
+    suspend fun checkAndBoost(context: Context): Int = withContext(Dispatchers.IO) {
         val prefs = PrefsManager.getInstance(context)
-        if (!prefs.smartBoostEnabled) return 0
+        if (!prefs.smartBoostEnabled) return@withContext 0
 
         val currentTime = System.currentTimeMillis()
-        if (currentTime - lastBoostTime < 10 * 60 * 1000) return 0 // Rate limit 10m
+        if (currentTime - lastBoostTime < 10 * 60 * 1000) return@withContext 0 // Rate limit 10m
 
-        if (isUserActivelyGaming(context)) return 0
+        if (isUserActivelyGaming(context)) return@withContext 0
 
         val memInfo = MemInfoReader.readMemInfo()
         val pressure = (memInfo.usedMb.toDouble() / memInfo.totalMb.toDouble()) * 100
@@ -37,16 +39,16 @@ object SmartBoostEngine {
             
             if (!hasCachedApps) {
                 highPressureCount = 0
-                return 0
+                return@withContext 0
             }
 
             val freed = performGentleBoost(context)
             lastBoostTime = currentTime
             highPressureCount = 0
-            return freed
+            return@withContext freed
         }
 
-        return 0
+        return@withContext 0
     }
 
     private fun isUserActivelyGaming(context: Context): Boolean {
@@ -73,7 +75,7 @@ object SmartBoostEngine {
         }
     }
 
-    private fun performGentleBoost(context: Context): Int {
+    private suspend fun performGentleBoost(context: Context): Int {
         val memBefore = MemInfoReader.readMemInfo().availableMb
         MemoryUtils.killBackgroundApps(context, "gentle")
         val memAfter = MemInfoReader.readMemInfo().availableMb

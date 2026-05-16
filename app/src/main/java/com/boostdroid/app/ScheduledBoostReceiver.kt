@@ -7,33 +7,42 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.PowerManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import java.util.*
 
 class ScheduledBoostReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
+        val pendingResult = goAsync()
         val pm = context.getSystemService(Context.POWER_SERVICE) as PowerManager
         val wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BoostDroid:ScheduledBoost")
         
-        try {
-            wakeLock.acquire(10 * 60 * 1000L /*10 mins max*/)
-            
-            val killed = BoostForegroundService.killBackgroundApps(context)
-            MemoryUtils.clearCache(context)
-            
-            val prefs = PrefsManager.getInstance(context)
-            if (prefs.notifyBoost) {
-                BoostForegroundService.showBoostNotification(context, context.getString(R.string.optimized))
+        CoroutineScope(Dispatchers.IO + SupervisorJob()).launch {
+            try {
+                wakeLock.acquire(10 * 60 * 1000L /*10 mins max*/)
+                
+                val intensity = PrefsManager.getInstance(context).boostIntensity
+                MemoryUtils.killBackgroundApps(context, intensity)
+                MemoryUtils.clearCache(context)
+                
+                val prefs = PrefsManager.getInstance(context)
+                if (prefs.notifyBoost) {
+                    BoostForegroundService.showBoostNotification(context, context.getString(R.string.optimized))
+                }
+                
+                // Reschedule for next day
+                val hour = intent.getIntExtra("hour", -1)
+                val minute = intent.getIntExtra("minute", -1)
+                if (hour >= 0 && minute >= 0) {
+                    reschedule(context, hour, minute)
+                }
+                
+            } finally {
+                if (wakeLock.isHeld) wakeLock.release()
+                pendingResult.finish()
             }
-            
-            // Reschedule for next day
-            val hour = intent.getIntExtra("hour", -1)
-            val minute = intent.getIntExtra("minute", -1)
-            if (hour >= 0 && minute >= 0) {
-                reschedule(context, hour, minute)
-            }
-            
-        } finally {
-            if (wakeLock.isHeld) wakeLock.release()
         }
     }
 

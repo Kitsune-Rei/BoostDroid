@@ -1,40 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Light values (default) -->
-    <color name="colorBg">#F0F2F8</color>
+    <!-- Light Mode Colors (Material 3) -->
+    <color name="colorBg">#F8FAFC</color>
     <color name="colorSurface">#FFFFFF</color>
-    <color name="colorSurfaceHigh">#F5F7FC</color>
     <color name="colorCard">#FFFFFF</color>
-    <color name="colorBorder">#E2E6F0</color>
-    <color name="colorTextPrimary">#0D1117</color>
-    <color name="colorTextSecondary">#5A6A8A</color>
-    <color name="colorTextTertiary">#9AA5BE</color>
+    <color name="colorTextPrimary">#0F172A</color>
+    <color name="colorPrimary">#2563EB</color>
+    <color name="colorSecondary">#7C3AED</color>
 
-    <!-- Semantic colors (shared) -->
-    <color name="colorAccent">#7C6FFF</color>
-    <color name="colorAccentDim">#1A7C6FFF</color>
-    <color name="colorAccentGlow">#5C50CC</color>
+    <!-- Shared Semantic Colors -->
     <color name="colorGreen">#00C896</color>
     <color name="colorGreenDim">#1A00C896</color>
     <color name="colorAmber">#FFB547</color>
     <color name="colorAmberDim">#1AFFB547</color>
     <color name="colorRed">#FF5252</color>
     <color name="colorRedDim">#1AFF5252</color>
-    <color name="colorBlue">#29B6F6</color>
-    <color name="colorBlueDim">#1A29B6F6</color>
+    <color name="colorBlue">#3B82F6</color>
+    <color name="colorBlueDim">#1A3B82F6</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Legacy compatibility -->
+    <color name="colorAccent">@color/colorPrimary</color>
+    <color name="colorAccentDim">#1A2563EB</color>
+    <color name="colorOnPrimary">@color/white</color>
+    <color name="colorBorder">#E2E8F0</color>
+    <color name="colorDivider">@color/colorBorder</color>
+    <color name="colorSurfaceHigh">#F1F5F9</color>
+    <color name="colorTextSecondary">#475569</color>
+    <color name="colorTextTertiary">#94A3B8</color>
 
     <color name="colorSuccess">@color/colorGreen</color>
     <color name="colorWarning">@color/colorAmber</color>
     <color name="colorError">@color/colorRed</color>
-    <color name="colorDivider">@color/colorBorder</color>
-
-    <!-- Legacy mappings -->
-    <color name="colorPrimary">@color/colorAccent</color>
-    <color name="colorOnPrimary">@color/white</color>
-    <color name="colorSecondary">@color/colorBlue</color>
-
-    <!-- Legacy / Theme Compat -->
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
-    <color name="transparent">#00000000</color>
 </resources>

@@ -56,7 +56,6 @@ class DashboardFragment : Fragment() {
         setupObservers()
         setupAnimations()
         startLiveBadgeTimer()
-        startLiveRamMonitor()
         binding.btnBoost.setOnClickListener { startBoost() }
         viewModel.startStatsUpdates(requireContext())
         
@@ -153,11 +152,51 @@ class DashboardFragment : Fragment() {
             binding.tvCpuModel.text = model
         }
 
+        viewModel.topApps.observe(viewLifecycleOwner) { apps ->
+            if (apps.isNotEmpty()) {
+                topAppsAdapter.updateList(apps)
+                binding.tvLiveStatus.text = "az önce"
+            } else {
+                binding.tvLiveStatus.text = "uygulama bulunamadı"
+            }
+        }
+
         viewModel.batteryInfo.observe(viewLifecycleOwner) { (pct, _, hours) ->
             binding.tvBatteryPercent.text = "$pct%"
             animateProgress(binding.progressBattery, pct)
             binding.tvBatteryRemaining.text = if (hours.isNotEmpty()) "~$hours kaldı" else "--"
             binding.tvBatteryMah.text = "Pil Durumu: İyi" // Default or fetch if available
+        }
+
+        viewModel.boostResult.observe(viewLifecycleOwner) { result ->
+            val resultMessage = buildString {
+                if (result.freedMb > 0 && result.killedCount > 0) {
+                    append("+${result.freedMb}MB RAM boşaltıldı")
+                    append(" · ")
+                    append("${result.killedCount} uygulama temizlendi")
+                } else if (result.freedMb > 0) {
+                    append("+${result.freedMb}MB RAM boşaltıldı")
+                } else if (result.killedCount > 0) {
+                    append("${result.killedCount} uygulama temizlendi")
+                    append(" · ")
+                    append("RAM sisteme döndü")
+                } else {
+                    append("Sistem zaten optimize durumda")
+                }
+            }
+
+            binding.btnBoost.text = "✓  BOOST"
+            Toast.makeText(requireContext(), resultMessage, Toast.LENGTH_LONG).show()
+            showBoostResultCard(result)
+            stopBoostAnimation()
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(2500)
+                _binding?.let { binding ->
+                    binding.btnBoost.text = "⚡  BOOST"
+                    binding.btnBoost.isEnabled = true
+                }
+            }
         }
     }
 
@@ -201,201 +240,7 @@ class DashboardFragment : Fragment() {
         binding.btnBoost.text = "OPTİMİZE EDİLİYOR..."
         startBoostAnimation()
         vibrate(60)
-        
-        viewLifecycleOwner.lifecycleScope.launch {
-            // 1. Measure BEFORE on IO thread
-            val memBefore = withContext(Dispatchers.IO) { 
-                ProcReader.readMemAvailableMb(requireContext()) 
-            }
-            
-            // 2. Run all boost actions on IO thread
-            val killedCount = withContext(Dispatchers.IO) {
-                var killed = 0
-                val sp = requireContext().getSharedPreferences("boostdroid_prefs", Context.MODE_PRIVATE)
-                if (sp.getBoolean("kill_apps", true)) {
-                    killed = MemoryUtils.killBackgroundApps(requireContext(), sp.getString("boost_intensity", "normal") ?: "normal")
-                }
-                if (sp.getBoolean("clear_clipboard", true)) {
-                    val cb = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
-                    cb.setPrimaryClip(android.content.ClipData.newPlainText("", ""))
-                }
-                killed
-            }
-            
-            // 3. Wait for OS to reclaim memory — CRITICAL timing
-            delay(1500)
-            
-            // 4. Force GC on IO
-            withContext(Dispatchers.IO) {
-                Runtime.getRuntime().gc()
-                System.gc()
-                Thread.sleep(300)
-                Runtime.getRuntime().gc()
-            }
-            
-            // 5. Wait again for GC to complete
-            delay(500)
-            
-            // 6. Measure AFTER on IO thread
-            val memAfter = withContext(Dispatchers.IO) { 
-                ProcReader.readMemAvailableMb(requireContext()) 
-            }
-            
-            // 7. Calculate freed (can be 0 or negative — both are valid)
-            val freedMb = (memAfter - memBefore).coerceAtLeast(0)
-            
-            // 8. Build honest result message
-            val resultMessage = buildString {
-                when {
-                    freedMb > 0 && killedCount > 0 -> {
-                        append("+${freedMb}MB RAM boşaltıldı")
-                        append(" · ")
-                        append("${killedCount} uygulama temizlendi")
-                    }
-                    freedMb > 0 && killedCount == 0 -> {
-                        append("+${freedMb}MB RAM boşaltıldı")
-                    }
-                    freedMb == 0 && killedCount > 0 -> {
-                        append("${killedCount} uygulama temizlendi")
-                        append(" · ")
-                        append("RAM sisteme döndü")
-                    }
-                    else -> {
-                        append("Sistem zaten optimize durumda")
-                    }
-                }
-            }
-            
-            // 9. Update UI — check binding first
-            val b = _binding ?: return@launch
-            b.btnBoost.text = "✓  BOOST"
-            
-            // Show result as Toast
-            Toast.makeText(requireContext(), resultMessage, Toast.LENGTH_LONG).show()
-            
-            // Notification part skipped as BoostService.showBoostNotification is not defined yet and instruction doesn't specify creating it.
-            
-            // Show comparison card
-            showBoostResultCard(BoostResult(freedMb.toLong(), killedCount, memBefore.toLong(), memAfter.toLong(), 0))
-            stopBoostAnimation()
-            
-            // Reset button after delay
-            delay(2500)
-            _binding?.let { binding ->
-                binding.btnBoost.text = "⚡  BOOST"
-                binding.btnBoost.isEnabled = true
-            }
-        }
-    }
-
-    private fun startLiveRamMonitor() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            while (isActive) {
-                try {
-                    val apps = getLiveRamApps()
-                    // Always check binding before UI update
-                    val b = _binding ?: break
-                    if (apps.isNotEmpty()) {
-                        topAppsAdapter.updateList(apps)
-                        b.tvLiveStatus.text = "az önce"
-                    } else {
-                        // Show empty state text instead of blank
-                        b.tvLiveStatus.text = "uygulama bulunamadı"
-                    }
-                } catch (e: Exception) {
-                    // never crash the monitor loop
-                }
-                delay(2500) // slightly longer to reduce CPU overhead
-            }
-        }
-    }
-
-    private suspend fun getLiveRamApps(): List<AppRamInfo> = withContext(Dispatchers.IO) {
-        val result = mutableListOf<AppRamInfo>()
-        
-        try {
-            val am = requireContext().applicationContext
-                .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-            val pm = requireContext().applicationContext.packageManager
-            val myPid = android.os.Process.myPid()
-            val myPkg = requireContext().packageName
-            
-            val processes = try {
-                am.runningAppProcesses
-            } catch (e: Exception) { null }
-            
-            if (processes.isNullOrEmpty()) return@withContext emptyList()
-            
-            for (proc in processes) {
-                if (!isActive) break // coroutine cancelled
-                if (proc.pid == myPid) continue
-                if (proc.processName == myPkg) continue
-                
-                try {
-                    val ramMb = ProcReader.readProcessRamMb(proc.pid)
-                    if (ramMb < 5) continue // lower threshold to 5MB
-                    
-                    // Determine package name (handle multi-process apps)
-                    val pkgName = proc.processName.split(":")[0]
-                    
-                    // Check if system app — use a lenient check
-                    val isSystem = try {
-                        val info = pm.getApplicationInfo(pkgName, 0)
-                        // Only skip TRULY system apps that are not launchable
-                        val isSystemFlag = (info.flags and 
-                            android.content.pm.ApplicationInfo.FLAG_SYSTEM) != 0
-                        val hasLauncher = pm.getLaunchIntentForPackage(pkgName) != null
-                        // If it has a launcher icon, show it even if system-signed
-                        isSystemFlag && !hasLauncher
-                    } catch (e: Exception) {
-                        // Package not found = likely a system daemon, skip
-                        proc.importance > 
-                            ActivityManager.RunningAppProcessInfo.IMPORTANCE_SERVICE
-                    }
-                    
-                    if (isSystem) continue
-                    
-                    val label = try {
-                        pm.getApplicationLabel(
-                            pm.getApplicationInfo(pkgName, 0)
-                        ).toString()
-                    } catch (e: Exception) {
-                        // Use process name as fallback — still show the entry
-                        pkgName.substringAfterLast(".").replaceFirstChar { 
-                            it.uppercase() 
-                        }
-                    }
-                    
-                    val icon = try {
-                        val iconCache = IconCache.getInstance()
-                        iconCache.get(pkgName) ?: run {
-                            val loaded = pm.getApplicationIcon(
-                                pm.getApplicationInfo(pkgName, 0)
-                            )
-                            iconCache.put(pkgName, loaded)
-                            loaded
-                        }
-                    } catch (e: Exception) { null }
-                    
-                    result.add(AppRamInfo(
-                        pid = proc.pid,
-                        packageName = pkgName,
-                        displayName = label,
-                        icon = icon,
-                        ramMb = ramMb,
-                        state = AppState.CACHED
-                    ))
-                    
-                } catch (e: Exception) {
-                    continue // never crash the loop
-                }
-            }
-            
-        } catch (e: Exception) {
-            return@withContext emptyList()
-        }
-        
-        result.sortedByDescending { it.ramMb }.take(7)
+        viewModel.performBoost(requireContext())
     }
 
     private fun startBoostAnimation() {

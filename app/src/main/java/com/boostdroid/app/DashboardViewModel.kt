@@ -74,6 +74,7 @@ class DashboardViewModel : ViewModel() {
 
     fun startStatsUpdates(context: Context) {
         if (statsJob?.isActive == true) return
+        val appContext = context.applicationContext
         
         _cpuModel.value = getCpuModel()
         
@@ -82,7 +83,7 @@ class DashboardViewModel : ViewModel() {
                 // Initial long stats (5s)
                 val longStatsTask = launch {
                     while (isActive) {
-                        updateLongStats(context)
+                        updateLongStats(appContext)
                         delay(5000)
                     }
                 }
@@ -90,7 +91,7 @@ class DashboardViewModel : ViewModel() {
                 // Fast RAM monitor (2s)
                 val ramMonitorTask = launch {
                     while (isActive) {
-                        val apps = getLiveRamApps(context)
+                        val apps = getLiveRamApps(appContext)
                         _topApps.postValue(apps)
                         _lastUpdateTime.postValue(System.currentTimeMillis())
                         delay(2000)
@@ -147,112 +148,29 @@ class DashboardViewModel : ViewModel() {
     }
 
     private suspend fun getLiveRamApps(context: Context): List<AppRamInfo> = withContext(Dispatchers.IO) {
-        val result = mutableListOf<AppRamInfo>()
-        
-        try {
-            val am = context.applicationContext
-                .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-            val pm = context.applicationContext.packageManager
-            val myPid = android.os.Process.myPid()
-            val myPkg = context.packageName
-            
-            val processes = try {
-                am.runningAppProcesses
-            } catch (e: Exception) { null }
-            
-            if (processes.isNullOrEmpty()) return@withContext emptyList()
-            
-            for (proc in processes) {
-                if (!isActive) break // coroutine cancelled
-                if (proc.pid == myPid) continue
-                if (proc.processName == myPkg) continue
-                
-                try {
-                    val ramMb = ProcReader.readProcessRamMb(proc.pid)
-                    if (ramMb < 5) continue // lower threshold to 5MB
-                    
-                    // Determine package name (handle multi-process apps)
-                    val pkgName = proc.processName.split(":")[0]
-                    
-                    // Check if system app — use a lenient check
-                    val isSystem = try {
-                        val info = pm.getApplicationInfo(pkgName, 0)
-                        // Only skip TRULY system apps that are not launchable
-                        val isSystemFlag = (info.flags and 
-                            android.content.pm.ApplicationInfo.FLAG_SYSTEM) != 0
-                        val hasLauncher = pm.getLaunchIntentForPackage(pkgName) != null
-                        // If it has a launcher icon, show it even if system-signed
-                        isSystemFlag && !hasLauncher
-                    } catch (e: Exception) {
-                        // Package not found = likely a system daemon, skip
-                        proc.importance > 
-                            ActivityManager.RunningAppProcessInfo.IMPORTANCE_SERVICE
-                    }
-                    
-                    if (isSystem) continue
-                    
-                    val label = try {
-                        pm.getApplicationLabel(
-                            pm.getApplicationInfo(pkgName, 0)
-                        ).toString()
-                    } catch (e: Exception) {
-                        // Use process name as fallback — still show the entry
-                        pkgName.substringAfterLast(".").replaceFirstChar { 
-                            it.uppercase() 
-                        }
-                    }
-                    
-                    val icon = try {
-                        val iconCache = IconCache.getInstance()
-                        iconCache.get(pkgName) ?: run {
-                            val loaded = pm.getApplicationIcon(
-                                pm.getApplicationInfo(pkgName, 0)
-                            )
-                            iconCache.put(pkgName, loaded)
-                            loaded
-                        }
-                    } catch (e: Exception) { null }
-                    
-                    result.add(AppRamInfo(
-                        pid = proc.pid,
-                        packageName = pkgName,
-                        displayName = label,
-                        icon = icon,
-                        ramMb = ramMb,
-                        state = AppState.CACHED
-                    ))
-                    
-                } catch (e: Exception) {
-                    continue // never crash the loop
-                }
-            }
-            
-        } catch (e: Exception) {
-            return@withContext emptyList()
-        }
-        
-        result.sortedByDescending { it.ramMb }.take(7)
+        MemoryUtils.getAppRamInfoList(context)
     }
 
     fun performBoost(context: Context) {
-        val prefs = PrefsManager.getInstance(context)
+        val appContext = context.applicationContext
+        val prefs = PrefsManager.getInstance(appContext)
         val intensity = prefs.boostIntensity
         
         viewModelScope.launch {
             // 1. Measure BEFORE on IO thread
             val memBefore = withContext(Dispatchers.IO) { 
-                ProcReader.readMemAvailableMb(context) 
+                ProcReader.readMemAvailableMb(appContext) 
             }
             
             var killedCount = 0
             
             withContext(Dispatchers.IO) {
                 if (prefs.killApps) {
-                    killedCount = MemoryUtils.killBackgroundApps(context, intensity)
+                    killedCount = MemoryUtils.killBackgroundApps(appContext, intensity)
                 }
                 
                 if (prefs.clearClipboard) {
-                    val cb = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                    val cb = appContext.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
                     cb.setPrimaryClip(android.content.ClipData.newPlainText("", ""))
                 }
                 
@@ -271,15 +189,13 @@ class DashboardViewModel : ViewModel() {
             
             // 6. Measure AFTER on IO thread
             val memAfter = withContext(Dispatchers.IO) { 
-                ProcReader.readMemAvailableMb(context) 
+                ProcReader.readMemAvailableMb(appContext) 
             }
             
             // 7. Calculate freed
             var freed = (memAfter - memBefore).coerceAtLeast(0).toLong()
             
             // Honesty cap: freed amount cannot be larger than half of used RAM (approx)
-            // Actually, using real readings is more honest. 
-            // The previous logic had a cap, I'll keep a sane one but use the real diff.
             val memInfo = MemInfoReader.readMemInfo()
             freed = freed.coerceAtMost(memInfo.usedMb)
             
