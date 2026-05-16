@@ -8,7 +8,7 @@
         <item name="strokeColor">@color/colorBorder</item>
     </style>
 
-    <style name="Badge.BD">
+    <style name="Badge.BD" parent="TextAppearance.Material3.LabelSmall">
         <item name="android:paddingStart">8dp</item>
         <item name="android:paddingEnd">8dp</item>
         <item name="android:paddingTop">4dp</item>
