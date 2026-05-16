@@ -27,41 +27,56 @@ class DeviceInfoViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val info = mutableMapOf<String, String>()
             
-            // Brand & Model
-            info["brand"] = Build.MANUFACTURER.replaceFirstChar { it.uppercase() }
-            info["model"] = Build.MODEL
-            
-            // Processor
-            info["cpu"] = getCpuModel()
-            info["cores"] = "${Runtime.getRuntime().availableProcessors()} cores"
-            
-            // SOC (API 31+)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                info["soc"] = "${Build.SOC_MANUFACTURER} ${Build.SOC_MODEL}"
+            try {
+                // Brand & Model
+                info["brand"] = Build.MANUFACTURER?.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } ?: "Unknown"
+                info["model"] = Build.MODEL ?: "Unknown"
+                
+                // Processor
+                info["cpu"] = getCpuModel()
+                info["cores"] = "${Runtime.getRuntime().availableProcessors()} cores"
+                
+                // SOC (API 31+)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    try {
+                        info["soc"] = "${Build.SOC_MANUFACTURER} ${Build.SOC_MODEL}"
+                    } catch (_: Exception) {
+                        info["soc"] = "N/A"
+                    }
+                }
+                
+                // RAM
+                val am = appContext.getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager
+                val memInfo = ActivityManager.MemoryInfo()
+                am?.getMemoryInfo(memInfo)
+                info["ram"] = String.format(Locale.US, "%.1f GB", memInfo.totalMem / (1024.0 * 1024 * 1024))
+                
+                // Storage
+                try {
+                    val stat = StatFs(Environment.getDataDirectory().path)
+                    info["storage"] = String.format(Locale.US, "%.0f GB", stat.totalBytes.toDouble() / (1024.0 * 1024 * 1024))
+                } catch (e: Exception) {
+                    info["storage"] = "N/A"
+                }
+                info["storage_type"] = getStorageType()
+                
+                // Software
+                info["android"] = "Android ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})"
+                info["patch"] = try { Build.VERSION.SECURITY_PATCH ?: "N/A" } catch (_: Exception) { "N/A" }
+                
+                // Display
+                val dm = appContext.resources.displayMetrics
+                info["resolution"] = "${dm.widthPixels} x ${dm.heightPixels} px"
+                info["dpi"] = "${dm.densityDpi} dpi"
+                info["refresh_rate"] = getRefreshRate(appContext)
+                
+                // GPU
+                info["gpu"] = getGpuInfo()
+            } catch (e: Exception) {
+                // Fallback for extreme cases
+                info["brand"] = info["brand"] ?: "Unknown"
+                info["model"] = info["model"] ?: "Unknown"
             }
-            
-            // RAM
-            val am = appContext.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-            val memInfo = ActivityManager.MemoryInfo().also { am.getMemoryInfo(it) }
-            info["ram"] = String.format(Locale.US, "%.1f GB", memInfo.totalMem / (1024.0 * 1024 * 1024))
-            
-            // Storage
-            val stat = StatFs(Environment.getDataDirectory().path)
-            info["storage"] = String.format(Locale.US, "%.0f GB", stat.totalBytes.toDouble() / (1024.0 * 1024 * 1024))
-            info["storage_type"] = getStorageType()
-            
-            // Software
-            info["android"] = "Android ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})"
-            info["patch"] = Build.VERSION.SECURITY_PATCH
-            
-            // Display
-            val dm = appContext.resources.displayMetrics
-            info["resolution"] = "${dm.widthPixels} x ${dm.heightPixels} px"
-            info["dpi"] = "${dm.densityDpi} dpi"
-            info["refresh_rate"] = getRefreshRate(appContext)
-            
-            // GPU
-            info["gpu"] = getGpuInfo()
 
             withContext(Dispatchers.Main) {
                 _deviceInfo.value = info
@@ -76,7 +91,7 @@ class DeviceInfoViewModel : ViewModel() {
                     .firstOrNull { it.startsWith("Hardware") || it.startsWith("model name") || it.startsWith("Processor") }
                     ?.substringAfter(":")?.trim() ?: Build.HARDWARE
             }
-        } catch (ignored: Exception) {
+        } catch (_: Exception) {
             Build.HARDWARE
         }
     }

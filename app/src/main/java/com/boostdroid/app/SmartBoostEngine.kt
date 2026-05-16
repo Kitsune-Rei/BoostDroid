@@ -3,7 +3,6 @@ package com.boostdroid.app
 import android.app.ActivityManager
 import android.app.usage.UsageStatsManager
 import android.content.Context
-import android.os.Build
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -16,7 +15,7 @@ object SmartBoostEngine {
         if (!prefs.smartBoostEnabled) return@withContext 0
 
         val currentTime = System.currentTimeMillis()
-        if (currentTime - lastBoostTime < 10 * 60 * 1000) return@withContext 0 // Rate limit 10m
+        if ((currentTime - lastBoostTime) < 10 * 60 * 1000) return@withContext 0 // Rate limit 10m
 
         if (isUserActivelyGaming(context)) return@withContext 0
 
@@ -64,13 +63,9 @@ object SmartBoostEngine {
         
         return try {
             val pm = context.packageManager
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val appInfo = pm.getApplicationInfo(packageName, 0)
-                appInfo.category == android.content.pm.ApplicationInfo.CATEGORY_GAME
-            } else {
-                packageName.contains("game", ignoreCase = true)
-            }
-        } catch (e: Exception) {
+            val appInfo = pm.getApplicationInfo(packageName, 0)
+            appInfo.category == android.content.pm.ApplicationInfo.CATEGORY_GAME
+        } catch (_: Exception) {
             false
         }
     }

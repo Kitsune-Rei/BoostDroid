@@ -30,7 +30,7 @@ class ReviveViewModel : ViewModel() {
             val packages = pm.getInstalledApplications(PackageManager.GET_META_DATA)
             val iconCache = IconCache.getInstance()
 
-            val appList = packages.filter { 
+            val appList = packages.asSequence().filter { 
                 (it.flags and ApplicationInfo.FLAG_SYSTEM) == 0 
             }.map { app ->
                 val label = app.loadLabel(pm).toString()
@@ -46,9 +46,9 @@ class ReviveViewModel : ViewModel() {
                     label = label,
                     icon = icon,
                     state = state,
-                    estimatedRam = ProcReader.readProcessRamMb(pid)
+                    estimatedRam = ProcReader.readProcessRamMb(pid),
                 )
-            }.sortedBy { it.label }
+            }.sortedBy { it.label }.toList()
 
             withContext(Dispatchers.Main) {
                 _appList.value = appList

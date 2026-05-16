@@ -14,21 +14,22 @@ class SettingsViewModel : ViewModel() {
     val permissionsStatus: LiveData<Map<String, Boolean>> = _permissionsStatus
 
     fun checkPermissions(context: Context) {
+        val appContext = context.applicationContext
         val status = mutableMapOf<String, Boolean>()
         
         // Usage Stats
-        status["usage"] = hasUsageStatsPermission(context)
+        status["usage"] = hasUsageStatsPermission(appContext)
         
         // Notifications (API 33+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            status["notifications"] = context.checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) == android.content.pm.PackageManager.PERMISSION_GRANTED
+            status["notifications"] = appContext.checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) == android.content.pm.PackageManager.PERMISSION_GRANTED
         } else {
             status["notifications"] = true
         }
         
         // Exact Alarm (API 31+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val am = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             status["alarm"] = am.canScheduleExactAlarms()
         } else {
             status["alarm"] = true

@@ -20,18 +20,19 @@ class DnsViewModel : ViewModel() {
     val adbSetupRequired: LiveData<Boolean> = _adbSetupRequired
 
     fun applyDns(context: Context, address: String) {
+        val appContext = context.applicationContext
         viewModelScope.launch {
             try {
                 withContext(Dispatchers.IO) {
-                    Settings.Global.putString(context.contentResolver, "private_dns_mode", "hostname")
-                    Settings.Global.putString(context.contentResolver, "private_dns_specifier", address)
+                    Settings.Global.putString(appContext.contentResolver, "private_dns_mode", "hostname")
+                    Settings.Global.putString(appContext.contentResolver, "private_dns_specifier", address)
                 }
                 _adbSetupRequired.value = false
-                PrefsManager.getInstance(context).dnsAdbGranted = true
+                PrefsManager.getInstance(appContext).dnsAdbGranted = true
                 validateDns()
             } catch (e: SecurityException) {
                 _adbSetupRequired.value = true
-                PrefsManager.getInstance(context).dnsAdbGranted = false
+                PrefsManager.getInstance(appContext).dnsAdbGranted = false
             }
         }
     }
@@ -53,10 +54,11 @@ class DnsViewModel : ViewModel() {
     }
 
     fun checkInitialState(context: Context) {
-        val current = Settings.Global.getString(context.contentResolver, "private_dns_specifier")
+        val appContext = context.applicationContext
+        val current = Settings.Global.getString(appContext.contentResolver, "private_dns_specifier")
         if (!current.isNullOrBlank()) {
             validateDns()
         }
-        _adbSetupRequired.value = !PrefsManager.getInstance(context).dnsAdbGranted
+        _adbSetupRequired.value = !PrefsManager.getInstance(appContext).dnsAdbGranted
     }
 }

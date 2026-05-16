@@ -8,6 +8,12 @@
     <color name="colorPrimary">#3B82F6</color>
     <color name="colorSecondary">#8B5CF6</color>
 
+    <!-- Shared Semantic Colors for Dark Mode -->
+    <color name="colorGreenDim">#1A00C896</color>
+    <color name="colorAmberDim">#1AFFB547</color>
+    <color name="colorRedDim">#1AFF5252</color>
+    <color name="colorBlueDim">#1A3B82F6</color>
+
     <!-- Overrides for dark mode if needed -->
     <color name="colorBorder">#334155</color>
     <color name="colorSurfaceHigh">#2D3748</color>

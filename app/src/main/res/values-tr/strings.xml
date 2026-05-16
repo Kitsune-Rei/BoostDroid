@@ -163,4 +163,27 @@
     <string name="revive_io_wait">Depolama kuyruğu beklendi. </string>
     <string name="revive_ram_insufficient">RAM hâlâ yetersiz — tekrar deneyin.</string>
     <string name="revive_app_launched">Uygulama başlatıldı.</string>
+    <string name="ram_total">%1$d MB toplam</string>
+    <string name="ram_details">Boş: %1$dMB  ·  Önbellek: %2$dMB</string>
+    <string name="io_active">Aktif</string>
+    <string name="io_idle">Boşta</string>
+    <string name="net_connected">Bağlı</string>
+    <string name="storage_used_text">%1$s kullanıldı</string>
+    <string name="storage_total_text">%1$s toplam</string>
+    <string name="battery_remaining">~%s kaldı</string>
+    <string name="battery_health">Pil Durumu: İyi</string>
+    <string name="boost_result_detail">Boost sonrası: %1$d uygulama temizlendi</string>
+    <string name="boost_ram_freed">+%1$dMB RAM boşaltıldı</string>
+    <string name="boost_apps_cleaned">%1$d uygulama temizlendi</string>
+    <string name="boost_ram_returned">RAM sisteme döndü</string>
+    <string name="boost_already_optimized">Sistem zaten optimize durumda</string>
+    <string name="live_just_now">az önce</string>
+    <string name="live_no_apps">uygulama bulunamadı</string>
+    <string name="live_ago">CANLI · %1$dsn önce</string>
+    <string name="live_updating">GÜNCELLENİYOR...</string>
+    <string name="net_down">↓ %s</string>
+    <string name="net_up">↑ %s</string>
+    <string name="btn_boost_done">✓  BOOST</string>
+    <string name="btn_boost_idle">⚡  BOOST</string>
+    <string name="version_info_text">v%1$s  ·  Root gerektirmez  ·  Android %2$s+</string>
 </resources>

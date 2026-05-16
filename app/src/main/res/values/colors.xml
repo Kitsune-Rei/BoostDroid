@@ -5,6 +5,8 @@
     <color name="colorSurface">#FFFFFF</color>
     <color name="colorCard">#FFFFFF</color>
     <color name="colorTextPrimary">#0F172A</color>
+    <color name="colorTextSecondary">#334155</color>
+    <color name="colorTextTertiary">#64748B</color>
     <color name="colorPrimary">#2563EB</color>
     <color name="colorSecondary">#7C3AED</color>
 
@@ -29,8 +31,6 @@
     <color name="colorBorder">#E2E8F0</color>
     <color name="colorDivider">@color/colorBorder</color>
     <color name="colorSurfaceHigh">#F1F5F9</color>
-    <color name="colorTextSecondary">#475569</color>
-    <color name="colorTextTertiary">#94A3B8</color>
 
     <color name="colorSuccess">@color/colorGreen</color>
     <color name="colorWarning">@color/colorAmber</color>

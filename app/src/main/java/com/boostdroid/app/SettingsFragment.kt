@@ -40,12 +40,21 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setupUI() {
+        // Version Info
+        try {
+            val pInfo = requireContext().packageManager.getPackageInfo(requireContext().packageName, 0)
+            val version = pInfo.versionName
+            binding.tvVersionInfo.text = getString(R.string.version_info_text, version, Build.VERSION.RELEASE)
+        } catch (_: Exception) {
+            binding.tvVersionInfo.text = getString(R.string.app_name)
+        }
+
         // Theme
         binding.switchDarkTheme.isChecked = prefs.darkTheme
         binding.switchDarkTheme.setOnCheckedChangeListener { _, checked ->
             prefs.darkTheme = checked
             AppCompatDelegate.setDefaultNightMode(
-                if (checked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+                if (checked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO,
             )
             // Delay recreate to let delegate apply
             binding.root.postDelayed({ activity?.recreate() }, 100)
@@ -66,22 +75,26 @@ class SettingsFragment : Fragment() {
 
         // Fix Buttons
         binding.btnFixUsage.setOnClickListener {
-            startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS).apply {
-                data = Uri.fromParts("package", requireContext().packageName, null)
-            })
+            startActivity(
+                Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS).apply {
+                    data = Uri.fromParts("package", requireContext().packageName, null)
+                },
+            )
         }
         binding.btnFixNotif.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+            startActivity(
+                Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
                     putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
-                })
-            }
+                },
+            )
         }
         binding.btnFixAlarm.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                startActivity(Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).apply {
-                    data = Uri.fromParts("package", requireContext().packageName, null)
-                })
+                startActivity(
+                    Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).apply {
+                        data = Uri.fromParts("package", requireContext().packageName, null)
+                    },
+                )
             }
         }
     }
@@ -115,6 +128,7 @@ class SettingsFragment : Fragment() {
         
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             requireActivity().recreate()
+            @Suppress("DEPRECATION")
             requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }

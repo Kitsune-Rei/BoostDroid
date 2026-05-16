@@ -2,9 +2,7 @@ package com.boostdroid.app
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.app.ActivityManager
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.*
 import android.provider.Settings
@@ -81,10 +79,10 @@ class DashboardFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.ramUsage.observe(viewLifecycleOwner) { info ->
-            binding.tvRamBadge.text = "%${info.pct}"
-            binding.tvRamUsed.text = "${info.usedMb} MB"
-            binding.tvRamTotal.text = "${info.totalMb} MB toplam"
-            binding.tvRamDetails.text = "Boş: ${info.availMb}MB  ·  Önbellek: ${info.cachedMb}MB"
+            binding.tvRamBadge.text = getString(R.string.ram_usage_pct, info.pct)
+            binding.tvRamUsed.text = getString(R.string.app_mem_text, info.usedMb)
+            binding.tvRamTotal.text = getString(R.string.ram_total, info.totalMb)
+            binding.tvRamDetails.text = getString(R.string.ram_details, info.availMb, info.cachedMb)
             
             animateProgress(binding.progressRam, info.pct)
             pulseBadge(binding.tvRamBadge)
@@ -97,12 +95,12 @@ class DashboardFragment : Fragment() {
             }
             
             val isBusy = stats.iosInProgress > 0
-            binding.tvIoBadge.text = if (isBusy) "Aktif" else "Boşta"
+            binding.tvIoBadge.text = if (isBusy) getString(R.string.io_active) else getString(R.string.io_idle)
             binding.tvIoBadge.setTextColor(
-                ContextCompat.getColor(requireContext(), if (isBusy) R.color.colorGreen else R.color.colorTextSecondary)
+                ContextCompat.getColor(requireContext(), if (isBusy) R.color.colorGreen else R.color.colorTextSecondary),
             )
             binding.tvIoBadge.backgroundTintList = ContextCompat.getColorStateList(
-                requireContext(), if (isBusy) R.color.colorGreenDim else R.color.colorSurfaceHigh
+                requireContext(), if (isBusy) R.color.colorGreenDim else R.color.colorSurfaceHigh,
             )
             
             binding.tvIoReadValue.text = viewModel.formatIoSpeed(stats.readKbps)
@@ -114,9 +112,9 @@ class DashboardFragment : Fragment() {
         }
 
         viewModel.networkSpeed.observe(viewLifecycleOwner) { (down, up) ->
-            binding.tvNetDown.text = "↓ $down"
-            binding.tvNetUp.text = "↑ $up"
-            binding.tvNetStatus.text = "Bağlı" // Assuming connected if speed is reported
+            binding.tvNetDown.text = getString(R.string.net_down, down)
+            binding.tvNetUp.text = getString(R.string.net_up, up)
+            binding.tvNetStatus.text = getString(R.string.net_connected)
             binding.vNetStatusDot.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.colorGreen)
         }
 
@@ -133,12 +131,12 @@ class DashboardFragment : Fragment() {
         }
         
         // Storage details from ViewModel might need formatting
-        viewModel.storageUsage.observe(viewLifecycleOwner) { (pct, text) ->
+        viewModel.storageUsage.observe(viewLifecycleOwner) { (_, text) ->
             // text usually looks like "36.2 GB / 103.1 GB"
             val parts = text.split("/")
             if (parts.size == 2) {
-                binding.tvStorageUsed.text = "${parts[0].trim()} kullanıldı"
-                binding.tvStorageTotal.text = "${parts[1].trim()} toplam"
+                binding.tvStorageUsed.text = getString(R.string.storage_used_text, parts[0].trim())
+                binding.tvStorageTotal.text = getString(R.string.storage_total_text, parts[1].trim())
             }
         }
 
@@ -155,37 +153,29 @@ class DashboardFragment : Fragment() {
         viewModel.topApps.observe(viewLifecycleOwner) { apps ->
             if (apps.isNotEmpty()) {
                 topAppsAdapter.updateList(apps)
-                binding.tvLiveStatus.text = "az önce"
+                binding.tvLiveStatus.text = getString(R.string.live_just_now)
             } else {
-                binding.tvLiveStatus.text = "uygulama bulunamadı"
+                binding.tvLiveStatus.text = getString(R.string.live_no_apps)
             }
         }
 
         viewModel.batteryInfo.observe(viewLifecycleOwner) { (pct, _, hours) ->
             binding.tvBatteryPercent.text = "$pct%"
             animateProgress(binding.progressBattery, pct)
-            binding.tvBatteryRemaining.text = if (hours.isNotEmpty()) "~$hours kaldı" else "--"
-            binding.tvBatteryMah.text = "Pil Durumu: İyi" // Default or fetch if available
+            binding.tvBatteryRemaining.text = if (hours.isNotEmpty()) getString(R.string.battery_remaining, hours) else "--"
+            binding.tvBatteryMah.text = getString(R.string.battery_health)
         }
 
         viewModel.boostResult.observe(viewLifecycleOwner) { result ->
-            val resultMessage = buildString {
-                if (result.freedMb > 0 && result.killedCount > 0) {
-                    append("+${result.freedMb}MB RAM boşaltıldı")
-                    append(" · ")
-                    append("${result.killedCount} uygulama temizlendi")
-                } else if (result.freedMb > 0) {
-                    append("+${result.freedMb}MB RAM boşaltıldı")
-                } else if (result.killedCount > 0) {
-                    append("${result.killedCount} uygulama temizlendi")
-                    append(" · ")
-                    append("RAM sisteme döndü")
-                } else {
-                    append("Sistem zaten optimize durumda")
-                }
+            val resultMessage = when {
+                result.freedMb > 0 && result.killedCount > 0 -> 
+                    getString(R.string.boost_ram_freed, result.freedMb) + " · " + getString(R.string.boost_apps_cleaned, result.killedCount)
+                result.freedMb > 0 -> getString(R.string.boost_ram_freed, result.freedMb)
+                result.killedCount > 0 -> getString(R.string.boost_apps_cleaned, result.killedCount) + " · " + getString(R.string.boost_ram_returned)
+                else -> getString(R.string.boost_already_optimized)
             }
 
-            binding.btnBoost.text = "✓  BOOST"
+            binding.btnBoost.text = getString(R.string.btn_boost_done)
             Toast.makeText(requireContext(), resultMessage, Toast.LENGTH_LONG).show()
             showBoostResultCard(result)
             stopBoostAnimation()
@@ -193,7 +183,7 @@ class DashboardFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 delay(2500)
                 _binding?.let { binding ->
-                    binding.btnBoost.text = "⚡  BOOST"
+                    binding.btnBoost.text = getString(R.string.btn_boost_idle)
                     binding.btnBoost.isEnabled = true
                 }
             }
@@ -210,7 +200,7 @@ class DashboardFragment : Fragment() {
             .setDuration(300)
             .start()
 
-        binding.tvBoostResultDetail.text = "Boost sonrası: ${result.killedCount} uygulama temizlendi"
+        binding.tvBoostResultDetail.text = getString(R.string.boost_result_detail, result.killedCount)
         
         binding.cardBoostResult.postDelayed({
             binding.cardBoostResult.animate()
@@ -232,14 +222,14 @@ class DashboardFragment : Fragment() {
 
     private fun pulseBadge(view: View) {
         view.animate().scaleX(1.15f).scaleY(1.15f).setDuration(100)
-            .withEndAction { view.animate().scaleX(1f).scaleY(1f).setDuration(100) }
+            .withEndAction { view.animate().scaleX(1f).scaleY(1f).duration = 100 }
     }
 
     private fun startBoost() {
         binding.btnBoost.isEnabled = false
-        binding.btnBoost.text = "OPTİMİZE EDİLİYOR..."
+        binding.btnBoost.text = getString(R.string.boosting)
         startBoostAnimation()
-        vibrate(60)
+        vibrate()
         viewModel.performBoost(requireContext())
     }
 
@@ -263,14 +253,14 @@ class DashboardFragment : Fragment() {
                 binding.vLiveDot.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.colorRed)
                 binding.tvLiveStatus.text = when {
                     seconds < 5 -> getString(R.string.live)
-                    else -> "CANLI · ${seconds}sn önce"
+                    else -> getString(R.string.live_ago, seconds)
                 }
             }
             else -> {
                 binding.layoutLiveBadge.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.colorAmberDim)
                 binding.tvLiveStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorAmber))
                 binding.vLiveDot.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.colorAmber)
-                binding.tvLiveStatus.text = "GÜNCELLENİYOR..."
+                binding.tvLiveStatus.text = getString(R.string.live_updating)
             }
         }
     }
@@ -304,7 +294,8 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    private fun vibrate(ms: Long) {
+    private fun vibrate() {
+        val ms = 60L
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 val vm = requireContext().getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
@@ -314,7 +305,7 @@ class DashboardFragment : Fragment() {
                 val v = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                 v.vibrate(VibrationEffect.createOneShot(ms, VibrationEffect.DEFAULT_AMPLITUDE))
             }
-        } catch (ignored: Exception) {}
+        } catch (_: Exception) {}
     }
 
     override fun onDestroyView() {

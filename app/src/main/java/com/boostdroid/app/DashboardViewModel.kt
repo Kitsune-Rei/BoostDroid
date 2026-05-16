@@ -1,6 +1,5 @@
 package com.boostdroid.app
 
-import android.app.ActivityManager
 import android.content.Context
 import android.net.TrafficStats
 import android.os.BatteryManager
@@ -13,13 +12,14 @@ import kotlinx.coroutines.*
 import java.io.BufferedReader
 import java.io.FileReader
 import java.util.*
+import kotlin.math.abs
 
 data class RamDisplayInfo(
     val usedMb: Long,
     val totalMb: Long,
     val availMb: Long,
     val cachedMb: Long,
-    val pct: Int
+    val pct: Int,
 )
 
 data class BoostResult(
@@ -65,9 +65,6 @@ class DashboardViewModel : ViewModel() {
     private val _thermalStats = MutableLiveData<ThermalStats>()
     val thermalStats: LiveData<ThermalStats> = _thermalStats
 
-    private val _ramPressure = MutableLiveData<String>()
-    val ramPressure: LiveData<String> = _ramPressure
-
     private var statsJob: Job? = null
     private var prevRxBytes = 0L
     private var prevTxBytes = 0L
@@ -112,7 +109,6 @@ class DashboardViewModel : ViewModel() {
         val used = memInfo.usedMb
         val pct = if (total > 0) ((used * 100) / total).toInt().coerceIn(0, 100) else 0
         _ramUsage.postValue(RamDisplayInfo(used, total, memInfo.availableMb, memInfo.cachedMb, pct))
-        _ramPressure.postValue(getPressureBadge(pct))
 
         // I/O, Thermal, Storage, CPU, Battery, Network (existing logic)
         _ioStats.postValue(IoMonitor.getIoStats())
@@ -129,10 +125,10 @@ class DashboardViewModel : ViewModel() {
         val bm = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
         val bat = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
         val currentNow = bm.getLongProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW)
-        val isMicro = Math.abs(currentNow) > 100000
-        val drainMa = if (isMicro) Math.abs(currentNow) / 1000 else Math.abs(currentNow)
+        val isMicro = abs(currentNow) > 100000
+        val drainMa = if (isMicro) abs(currentNow) / 1000 else abs(currentNow)
         var hoursText = ""
-        if (drainMa > 0 && !bm.isCharging) {
+        if ((drainMa > 0) && !bm.isCharging) {
             val totalMah = BoostForegroundService.getBatteryCapacityMah(context)
             val remainMah = (totalMah * bat / 100)
             hoursText = String.format(Locale.US, "%.1f", remainMah.toFloat() / drainMa.coerceAtLeast(1L))
@@ -213,7 +209,7 @@ class DashboardViewModel : ViewModel() {
                 val cores = Runtime.getRuntime().availableProcessors()
                 ((load / cores) * 100).toInt().coerceIn(1, 99)
             } else 5
-        } catch (e: Exception) { (3..12).random() }
+        } catch (_: Exception) { (3..12).random() }
     }
 
     private fun getCpuModel(): String {
@@ -230,16 +226,7 @@ class DashboardViewModel : ViewModel() {
                 }
             }
             hardware.ifEmpty { Build.HARDWARE }
-        } catch (e: Exception) { Build.HARDWARE }
-    }
-
-    private fun getPressureBadge(pct: Int): String {
-        return when {
-            pct < 60 -> "Normal"
-            pct < 80 -> "Yüksek"
-            pct < 90 -> "Kritik"
-            else -> "Kritik — Risk"
-        }
+        } catch (_: Exception) { Build.HARDWARE }
     }
 
     private fun formatSpeed(bytes: Long): String {

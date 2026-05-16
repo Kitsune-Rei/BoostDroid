@@ -24,14 +24,14 @@ object MemoryUtils {
         val pm = context.packageManager
         
         val endTime = System.currentTimeMillis()
-        val startTime = endTime - 1000 * 60 * 10 // Last 10 minutes for "running" apps
+        val startTime = endTime - (1000 * 60 * 10) // Last 10 minutes for "running" apps
         
         val stats = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startTime, endTime)
         if (stats.isNullOrEmpty()) {
             return@withContext getInstalledAppsFallback(context)
         }
 
-        stats.filter { it.lastTimeUsed > startTime }
+        stats.asSequence().filter { it.lastTimeUsed > startTime }
             .sortedByDescending { it.lastTimeUsed }
             .distinctBy { it.packageName }
             .filter { it.packageName != context.packageName }
@@ -49,7 +49,7 @@ object MemoryUtils {
                 } catch (_: Exception) {
                     null
                 }
-            }.take(10)
+            }.take(10).toList()
     }
 
     private fun getInstalledAppsFallback(context: Context): List<AppRamInfo> {
@@ -65,7 +65,7 @@ object MemoryUtils {
                     pm.getApplicationLabel(appInfo).toString(),
                     pm.getApplicationIcon(appInfo),
                     calculateEstimatedRam(appInfo.packageName),
-                    AppState.NOT_RUNNING
+                    AppState.NOT_RUNNING,
                 )
             }
     }

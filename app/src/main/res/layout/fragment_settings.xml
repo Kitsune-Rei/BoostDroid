@@ -302,9 +302,10 @@
                 android:textSize="16sp"
                 android:fontFamily="sans-serif-medium" />
             <TextView
+                android:id="@+id/tvVersionInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="v1.2  ·  Root gerektirmez  ·  Android 12+"
+                android:text="v1.0  ·  Root gerektirmez  ·  Android"
                 android:textAppearance="@style/TextAppearance.BD.Caption"
                 android:layout_marginTop="4dp"/>
         </LinearLayout>

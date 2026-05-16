@@ -164,8 +164,8 @@
     <string name="revive_ram_insufficient">RAM still insufficient — try again.</string>
     <string name="revive_app_launched">App launched.</string>
 
-    <string name="ram_total">%1$s MB total</string>
-    <string name="ram_details">Free: %1$sMB  ·  Cache: %2$sMB</string>
+    <string name="ram_total">%1$d MB total</string>
+    <string name="ram_details">Free: %1$dMB  ·  Cache: %2$dMB</string>
     <string name="io_active">Active</string>
     <string name="io_idle">Idle</string>
     <string name="net_connected">Connected</string>
@@ -182,4 +182,9 @@
     <string name="live_no_apps">no apps found</string>
     <string name="live_ago">LIVE · %1$ds ago</string>
     <string name="live_updating">UPDATING...</string>
+    <string name="net_down">↓ %s</string>
+    <string name="net_up">↑ %s</string>
+    <string name="btn_boost_done">✓  BOOST</string>
+    <string name="btn_boost_idle">⚡  BOOST</string>
+    <string name="version_info_text">v%1$s  ·  No root required  ·  Android %2$s+</string>
 </resources>
